@@ -3,6 +3,7 @@ package com.example.philippebors.volgjevrienden;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -114,6 +115,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
+        /* Als er al is ingelogd */
         if (mAuthTask != null) {
             return;
         }
@@ -271,6 +273,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             //TODO: Connect met de database en check of het nummber bestaat
+
+            /* Vraagt een plaatje (moet alleen als user nog niet is geregristreerd*/
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 101);
 
 
             // TODO: register the new account here.
