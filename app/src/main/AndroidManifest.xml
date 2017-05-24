@@ -55,6 +55,15 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"></activity>
+        <activity
+            android:name=".ScrollingActivity"
+            android:label="Your Friends"></activity>
+        <activity
+            android:name=".FriendActivity"
+            android:label="Your Friends"></activity>
+        <activity
+            android:name=".DatabaseActivity"
+            android:label="Your Friends"></activity>
     </application>
 
 </manifest>
