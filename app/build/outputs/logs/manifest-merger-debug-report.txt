@@ -1,0 +1,168 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:2:1-60:12
+	package
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:3:5-54
+		INJECTED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml
+uses-feature#0x00020000
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:10:5-12:35
+MERGED from [com.google.android.gms:play-services-maps:10.2.6] /Users/JobvanderZwaag/.android/build-cache/ebd1355fcf8d8af654255b4bb5df5ef6be8a9a4f/output/AndroidManifest.xml:21:5-77
+	android:glEsVersion
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:11:9-41
+	android:required
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:12:9-32
+uses-permission#android.permission.INTERNET
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:14:5-67
+MERGED from [com.google.android.gms:play-services-maps:10.2.6] /Users/JobvanderZwaag/.android/build-cache/ebd1355fcf8d8af654255b4bb5df5ef6be8a9a4f/output/AndroidManifest.xml:20:5-66
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:14:22-64
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:15:5-79
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:15:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:16:5-81
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:16:22-78
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:19:5-71
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:19:22-68
+uses-permission#android.permission.READ_PROFILE
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:20:5-71
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:20:22-68
+uses-permission#android.permission.READ_CONTACTS
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:21:5-72
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:21:22-69
+application
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:23:5-58:19
+MERGED from [com.google.android.gms:play-services-maps:10.2.6] /Users/JobvanderZwaag/.android/build-cache/ebd1355fcf8d8af654255b4bb5df5ef6be8a9a4f/output/AndroidManifest.xml:24:5-19
+MERGED from [com.google.android.gms:play-services-location:10.2.6] /Users/JobvanderZwaag/.android/build-cache/3ea516e0fcc263d79c450872184b7935431ce857/output/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-base:10.2.6] /Users/JobvanderZwaag/.android/build-cache/0938b01b7ecd7875dc2c4f76d57f94ab0f335de5/output/AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.android.gms:play-services-tasks:10.2.6] /Users/JobvanderZwaag/.android/build-cache/59a7917c59b4a34a6fafd0e97139fd1efc6f2572/output/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-basement:10.2.6] /Users/JobvanderZwaag/.android/build-cache/804e54faf1e670271558bf6ab63e680fdec3e323/output/AndroidManifest.xml:19:5-21:19
+MERGED from [com.android.support:design:25.3.1] /Users/JobvanderZwaag/.android/build-cache/5cff299a7590d3eb167c4609ff162f8aed44ff2f/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/JobvanderZwaag/.android/build-cache/e98137cb1d71a9e7bee687ab4a88b886361b4263/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/JobvanderZwaag/.android/build-cache/f50956fd4fd2ba28c0cd9990b9c3536a34d591db/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/JobvanderZwaag/.android/build-cache/00a5986cf16a56126dc0947223107591728c730f/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:25.3.1] /Users/JobvanderZwaag/.android/build-cache/31622536c4f008db028d245e7158c17efe9287fd/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-v4:25.3.1] /Users/JobvanderZwaag/.android/build-cache/54546379c6fc9eba44dd7c178c1672f0b465c409/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/JobvanderZwaag/.android/build-cache/779c2a940524ec13c82852b9c2dfee9e5f3c2148/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/JobvanderZwaag/.android/build-cache/719355e4f566bd7be6a29ea5eefad12a6c3b2283/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/JobvanderZwaag/.android/build-cache/c84d99607312f684967c46ab8ba0ff4533235829/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/JobvanderZwaag/.android/build-cache/268d787c84e78a6207fdcedd734098f313a26281/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] /Users/JobvanderZwaag/.android/build-cache/8b70025402c304ca2b9d22d22f6dc8e3e49f4391/output/AndroidManifest.xml:29:5-20
+	android:label
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:26:9-41
+	android:supportsRtl
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:28:9-35
+	android:roundIcon
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:27:9-54
+	android:allowBackup
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:24:9-35
+	android:icon
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:25:9-43
+	android:theme
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:29:9-40
+meta-data#com.google.android.gms.version
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:39:9-41:69
+MERGED from [com.google.android.gms:play-services-basement:10.2.6] /Users/JobvanderZwaag/.android/build-cache/804e54faf1e670271558bf6ab63e680fdec3e323/output/AndroidManifest.xml:20:9-121
+	android:value
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:41:13-66
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:40:13-58
+meta-data#com.google.android.geo.API_KEY
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:42:9-44:55
+	android:value
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:44:13-52
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:43:13-58
+activity#com.example.philippebors.volgjevrienden.MapsActivity
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:46:9-54:20
+	android:label
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:48:13-56
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:47:13-41
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:49:13-53:29
+action#android.intent.action.MAIN
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:50:17-69
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:50:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:52:17-77
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:52:27-74
+activity#com.example.philippebors.volgjevrienden.LoginActivity
+ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:55:9-57:69
+	android:label
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:57:13-57
+	android:name
+		ADDED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml:56:13-42
+uses-sdk
+INJECTED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.google.android.gms:play-services-maps:10.2.6] /Users/JobvanderZwaag/.android/build-cache/ebd1355fcf8d8af654255b4bb5df5ef6be8a9a4f/output/AndroidManifest.xml:23:5-43
+MERGED from [com.google.android.gms:play-services-location:10.2.6] /Users/JobvanderZwaag/.android/build-cache/3ea516e0fcc263d79c450872184b7935431ce857/output/AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-base:10.2.6] /Users/JobvanderZwaag/.android/build-cache/0938b01b7ecd7875dc2c4f76d57f94ab0f335de5/output/AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-tasks:10.2.6] /Users/JobvanderZwaag/.android/build-cache/59a7917c59b4a34a6fafd0e97139fd1efc6f2572/output/AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-basement:10.2.6] /Users/JobvanderZwaag/.android/build-cache/804e54faf1e670271558bf6ab63e680fdec3e323/output/AndroidManifest.xml:17:5-43
+MERGED from [com.android.support:design:25.3.1] /Users/JobvanderZwaag/.android/build-cache/5cff299a7590d3eb167c4609ff162f8aed44ff2f/output/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/JobvanderZwaag/.android/build-cache/e98137cb1d71a9e7bee687ab4a88b886361b4263/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/JobvanderZwaag/.android/build-cache/f50956fd4fd2ba28c0cd9990b9c3536a34d591db/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/JobvanderZwaag/.android/build-cache/00a5986cf16a56126dc0947223107591728c730f/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/JobvanderZwaag/.android/build-cache/a43df120fea3bc868d9726a13046fe261e636d58/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:transition:25.3.1] /Users/JobvanderZwaag/.android/build-cache/31622536c4f008db028d245e7158c17efe9287fd/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:25.3.1] /Users/JobvanderZwaag/.android/build-cache/54546379c6fc9eba44dd7c178c1672f0b465c409/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/JobvanderZwaag/.android/build-cache/779c2a940524ec13c82852b9c2dfee9e5f3c2148/output/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/JobvanderZwaag/.android/build-cache/719355e4f566bd7be6a29ea5eefad12a6c3b2283/output/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/JobvanderZwaag/.android/build-cache/c84d99607312f684967c46ab8ba0ff4533235829/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/JobvanderZwaag/.android/build-cache/268d787c84e78a6207fdcedd734098f313a26281/output/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:25.3.1] /Users/JobvanderZwaag/.android/build-cache/8b70025402c304ca2b9d22d22f6dc8e3e49f4391/output/AndroidManifest.xml:21:5-23:58
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:25.3.1] /Users/JobvanderZwaag/.android/build-cache/5cff299a7590d3eb167c4609ff162f8aed44ff2f/output/AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.android.gms:play-services-maps:10.2.6] /Users/JobvanderZwaag/.android/build-cache/ebd1355fcf8d8af654255b4bb5df5ef6be8a9a4f/output/AndroidManifest.xml:19:5-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:10.2.6] /Users/JobvanderZwaag/.android/build-cache/ebd1355fcf8d8af654255b4bb5df5ef6be8a9a4f/output/AndroidManifest.xml:19:22-76
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:10.2.6] /Users/JobvanderZwaag/.android/build-cache/0938b01b7ecd7875dc2c4f76d57f94ab0f335de5/output/AndroidManifest.xml:19:9-172
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:10.2.6] /Users/JobvanderZwaag/.android/build-cache/0938b01b7ecd7875dc2c4f76d57f94ab0f335de5/output/AndroidManifest.xml:19:146-170
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:10.2.6] /Users/JobvanderZwaag/.android/build-cache/0938b01b7ecd7875dc2c4f76d57f94ab0f335de5/output/AndroidManifest.xml:19:86-145
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:10.2.6] /Users/JobvanderZwaag/.android/build-cache/0938b01b7ecd7875dc2c4f76d57f94ab0f335de5/output/AndroidManifest.xml:19:19-85
+meta-data#android.support.VERSION
+ADDED from [com.android.support:design:25.3.1] /Users/JobvanderZwaag/.android/build-cache/5cff299a7590d3eb167c4609ff162f8aed44ff2f/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/JobvanderZwaag/.android/build-cache/e98137cb1d71a9e7bee687ab4a88b886361b4263/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/JobvanderZwaag/.android/build-cache/f50956fd4fd2ba28c0cd9990b9c3536a34d591db/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/JobvanderZwaag/.android/build-cache/00a5986cf16a56126dc0947223107591728c730f/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/JobvanderZwaag/.android/build-cache/a43df120fea3bc868d9726a13046fe261e636d58/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:transition:25.3.1] /Users/JobvanderZwaag/.android/build-cache/31622536c4f008db028d245e7158c17efe9287fd/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-v4:25.3.1] /Users/JobvanderZwaag/.android/build-cache/54546379c6fc9eba44dd7c178c1672f0b465c409/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/JobvanderZwaag/.android/build-cache/779c2a940524ec13c82852b9c2dfee9e5f3c2148/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/JobvanderZwaag/.android/build-cache/719355e4f566bd7be6a29ea5eefad12a6c3b2283/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/JobvanderZwaag/.android/build-cache/c84d99607312f684967c46ab8ba0ff4533235829/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/JobvanderZwaag/.android/build-cache/268d787c84e78a6207fdcedd734098f313a26281/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] /Users/JobvanderZwaag/.android/build-cache/8b70025402c304ca2b9d22d22f6dc8e3e49f4391/output/AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:design:25.3.1] /Users/JobvanderZwaag/.android/build-cache/5cff299a7590d3eb167c4609ff162f8aed44ff2f/output/AndroidManifest.xml:27:9-31
+	android:name
+		ADDED from [com.android.support:design:25.3.1] /Users/JobvanderZwaag/.android/build-cache/5cff299a7590d3eb167c4609ff162f8aed44ff2f/output/AndroidManifest.xml:26:9-47

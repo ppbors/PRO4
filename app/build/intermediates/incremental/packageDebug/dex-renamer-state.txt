@@ -1,0 +1,7 @@
+#Wed May 24 12:26:07 CEST 2017
+base.0=/Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_b7dc1c81fb185d9556b18e861b0e2752d09543b7
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_3b4968a9a3b34aa2192489152191561abdabdbbc/classes.dex
+base.1=/Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_3b4968a9a3b34aa2192489152191561abdabdbbc
+file.0=/Users/JobvanderZwaag/Desktop/VolgJeVrienden/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_b7dc1c81fb185d9556b18e861b0e2752d09543b7/classes.dex
