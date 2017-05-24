@@ -225,5 +225,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
+    public void connectDatabase(View view){
+        Intent intent = new Intent(this, DatabaseActivity1.class);
+        startActivity(intent);
+
+    }
+
 
 }

@@ -20,6 +20,17 @@ tools:context=".MapsActivity">
         android:layout_alignParentEnd="true"
         android:onClick="sendMessage" />
 
+    <ImageButton
+        android:id="@+id/button_menu2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu"
+        android:onClick="connectDatabase"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/button_menu"
+        android:layout_toStartOf="@+id/button_menu" />
+
+
 
 
 </RelativeLayout>
