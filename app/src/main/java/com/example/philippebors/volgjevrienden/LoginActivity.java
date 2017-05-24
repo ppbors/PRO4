@@ -3,6 +3,7 @@ package com.example.philippebors.volgjevrienden;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -114,6 +115,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
+        /* Als er al is ingelogd */
         if (mAuthTask != null) {
             return;
         }
@@ -200,9 +202,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
 
-                // Select only email addresses.
+                // Select only telephone numbers.
                 ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
+                        " = ?", new String[]{ContactsContract.CommonDataKinds.Phone
                 .CONTENT_ITEM_TYPE},
 
                 // Show primary email addresses first. Note that there won't be
@@ -215,7 +217,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         List<String> telNumbers = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            telNumbers.add(cursor.getString(ProfileQuery.ADDRESS));
+            telNumbers.add(cursor.getString(ProfileQuery.NUMBER));
             cursor.moveToNext();
         }
 
@@ -239,11 +241,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private interface ProfileQuery {
         String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
+                ContactsContract.CommonDataKinds.Phone.NUMBER,
+                ContactsContract.CommonDataKinds.Phone.IS_PRIMARY,
         };
 
-        int ADDRESS = 0;
+        int NUMBER = 0;
         int IS_PRIMARY = 1;
     }
 
@@ -270,14 +272,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mNumber)) {
-                    // Account exists, return true if the password matches.
-                    // Hier moet dus gekeken worden of het nummer al bestaat
-                    return true;
-                }
-            }
+            //TODO: Connect met de database en check of het nummber bestaat
+
+            /* Vraagt een plaatje (moet alleen als user nog niet is geregristreerd*/
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 101);
+
 
             // TODO: register the new account here.
             return true;
@@ -289,6 +291,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                MapsActivity.loggedIn = true;
                 finish();
             }
         }
