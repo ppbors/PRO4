@@ -37,7 +37,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private LocationRequest mLocationRequest;
     public static final String EXTRA_MESSAGE = "com.example.volgjevrienden.MESSAGE";
-    private boolean followMe = false;
+    public static boolean loggedIn = false;
 
 
 
@@ -156,6 +156,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param location  - The user's last known location
      */
     private void handleNewLocation(Location location) {
+        /* Laat de vriendenknop zien als je bent ingelogd */
+        if (loggedIn) {
+            View view = findViewById(R.id.button2);
+            view.setVisibility(View.VISIBLE);
+        }
         Log.d(TAG, location.toString());
 
         double currentLatitude = location.getLatitude();
@@ -231,5 +236,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    public void friendsButton(View view) {
+
+    }
 
 }

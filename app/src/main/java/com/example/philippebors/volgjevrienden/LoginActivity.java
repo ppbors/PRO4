@@ -291,6 +291,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                MapsActivity.loggedIn = true;
                 finish();
             }
         }
