@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mobileNoView.setError(getString(R.string.error_field_required));
             focusView = mobileNoView;
             cancel = true;
-        } else if (!isEmailValid(telNumber)) {
+        } else if (!isNumberValid(telNumber)) {
             mobileNoView.setError(getString(R.string.error_field_required));
             focusView = mobileNoView;
             cancel = true;
@@ -151,9 +151,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private boolean isEmailValid(String email) {
+    private boolean isNumberValid(String number) {
         //TODO: Replace this with your own logic
-        return email.contains("06");
+        return number.contains("06") && number.length() == 10;
     }
 
 
