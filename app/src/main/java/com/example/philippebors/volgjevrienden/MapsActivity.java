@@ -237,7 +237,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void friendsButton(View view) {
-
+        Intent intent = new Intent(this, ScrollingActivity.class);
+        startActivity(intent);
     }
 
 }
