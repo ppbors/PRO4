@@ -25,22 +25,30 @@ tools:context="com.example.philippebors.volgjevrienden.DatabaseActivity">
             android:textStyle="bold"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"
-            android:text="Name"
+            android:text="ID"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:layout_marginRight="20dp"
-            android:text="Course"
+            android:text="Number"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:layout_marginRight="20dp"
-            android:text="Session"
+            android:text="Longitude"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginRight="20dp"
+            android:text="Latitude"
+            />
+
     </TableRow>
     <TableRow>
         <TextView
@@ -54,14 +62,21 @@ tools:context="com.example.philippebors.volgjevrienden.DatabaseActivity">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:id="@+id/textViewCourse"
+            android:id="@+id/textViewNumber"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:id="@+id/textViewSession"
+            android:id="@+id/textViewLongitude"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:id="@+id/textViewLatitude"
+            />
+
     </TableRow>
 </TableLayout>
 

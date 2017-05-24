@@ -33,8 +33,10 @@ public class DatabaseActivity extends AppCompatActivity implements Spinner.OnIte
 
     //TextViews to display details
     private TextView textViewName;
-    private TextView textViewCourse;
-    private TextView textViewSession;
+    private TextView textViewNumber;
+    private TextView textViewLongitude;
+    private TextView textViewLatitude;
+    //private TextView textViewDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +55,10 @@ public class DatabaseActivity extends AppCompatActivity implements Spinner.OnIte
 
         //Initializing TextViews
         textViewName = (TextView) findViewById(R.id.textViewName);
-        textViewCourse = (TextView) findViewById(R.id.textViewCourse);
-        textViewSession = (TextView) findViewById(R.id.textViewSession);
+        textViewNumber = (TextView) findViewById(R.id.textViewNumber);
+        textViewLongitude = (TextView) findViewById(R.id.textViewLongitude);
+        textViewLatitude = (TextView) findViewById(R.id.textViewLatitude);
+    //    textViewDate = (TextView) findViewById(R.id.textViewDate);
 
         //This method will fetch the data from the URL
         getData();
@@ -103,7 +107,7 @@ public class DatabaseActivity extends AppCompatActivity implements Spinner.OnIte
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                students.add(json.getString(Config.TAG_USERNAME));
+                students.add(json.getString(Config.TAG_NAME));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -114,60 +118,87 @@ public class DatabaseActivity extends AppCompatActivity implements Spinner.OnIte
     }
 
     //Method to get student name of a particular position
-    private String getName(int position){
-        String name="";
+    private String getID(int position){
+        String ID="";
         try {
             //Getting object of given index
             JSONObject json = result.getJSONObject(position);
 
             //Fetching name from that object
-            name = json.getString(Config.TAG_NAME);
+            ID = json.getString(Config.TAG_ID);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         //Returning the name
-        return name;
+        return ID;
     }
 
     //Doing the same with this method as we did with getName()
-    private String getCourse(int position){
-        String course="";
+    private String getNumber(int position){
+        String number="";
         try {
             JSONObject json = result.getJSONObject(position);
-            course = json.getString(Config.TAG_COURSE);
+            number = json.getString(Config.TAG_NUMBER);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return course;
+        return number;
     }
 
     //Doing the same with this method as we did with getName()
-    private String getSession(int position){
-        String session="";
+    private String getLongitude(int position){
+        String Longitude="";
         try {
             JSONObject json = result.getJSONObject(position);
-            session = json.getString(Config.TAG_SESSION);
+            Longitude = json.getString(Config.TAG_LONGITUDE);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return session;
+        return Longitude;
     }
 
+    //Doing the same with this method as we did with getName()
+    private String getLatitude(int position){
+        String latitude="";
+        try {
+            JSONObject json = result.getJSONObject(position);
+            latitude = json.getString(Config.TAG_LATITUDE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return latitude;
+    }
+
+/*    //Doing the same with this method as we did with getName()
+    private String getDate(int position){
+        String date="";
+        try {
+            JSONObject json = result.getJSONObject(position);
+            date = json.getString(Config.TAG_DATE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }*/
 
     //this method will execute when we pic an item from the spinner
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //Setting the values to textviews for a selected item 
-        textViewName.setText(getName(position));
-        textViewCourse.setText(getCourse(position));
-        textViewSession.setText(getSession(position));
+        textViewName.setText(getID(position));
+        textViewNumber.setText(getNumber(position));
+        textViewLongitude.setText(getLongitude(position));
+        textViewLatitude.setText(getLatitude(position));
+        //textViewDate.setText(getDate(position));
     }
 
     //When no item is selected this method would execute
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         textViewName.setText("");
-        textViewCourse.setText("");
-        textViewSession.setText("");
+        textViewNumber.setText("");
+        textViewLongitude.setText("");
+        textViewLatitude.setText("");
+        //textViewDate.setText("");
     }
 }

@@ -14,11 +14,12 @@ public class Config {
     public static final String DATA_URL = "http://nolden.biz/Android/json.php";
 
     //Tags used in the JSON String
-    public static final String TAG_USERNAME = "ID";
+    public static final String TAG_ID = "ID";
     public static final String TAG_NAME = "NAME";
-    public static final String TAG_COURSE = "PHONENUMBER";
-    public static final String TAG_SESSION = "LONGITUDE";
+    public static final String TAG_NUMBER = "NUMBER";
+    public static final String TAG_LONGITUDE = "LONGITUDE";
     public static final String TAG_LATITUDE = "LATITUDE";
+    public static final String TAG_DATE = "DATE";
 
     //JSON array name
     public static final String JSON_ARRAY = "result";
