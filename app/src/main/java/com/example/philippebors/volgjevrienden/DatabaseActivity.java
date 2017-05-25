@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 public class DatabaseActivity extends AppCompatActivity implements Spinner.OnItemSelectedListener{
 
+    /* Haalt data uit JSON en zet ze in een Android Spinner.*/
+
     //Declaring an Spinner
     private Spinner spinner;
 
