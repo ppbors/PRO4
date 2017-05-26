@@ -54,16 +54,20 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".ScrollingActivity"
-            android:label="Your Friends"></activity>
+            android:label="Your Friends" />
         <activity
             android:name=".FriendActivity"
-            android:label="Your Friends"></activity>
+            android:label="Your Friends" />
         <activity
-            android:name=".DatabaseActivity"
-            android:label="Your Friends"></activity>
+            android:name=".DatabaseReadActivity"
+            android:label="Your Friends" />
+        <activity
+            android:name=".DatabaseWriteActivity"
+            android:label="Your Friends" />
+
     </application>
 
 </manifest>

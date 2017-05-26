@@ -30,6 +30,16 @@ tools:context=".MapsActivity">
         android:layout_toLeftOf="@+id/button_menu"
         android:layout_toStartOf="@+id/button_menu" />
 
+    <ImageButton
+        android:id="@+id/button_menu3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu"
+        android:onClick="writeDatabase"
+        android:layout_below="@+id/button_menu2"
+        android:layout_alignLeft="@+id/button_menu2"
+        android:layout_alignStart="@+id/button_menu2" />
+
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
