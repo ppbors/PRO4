@@ -1,25 +1,18 @@
 package com.example.philippebors.volgjevrienden;
 
-import java.io.BufferedInputStream;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,45 +31,51 @@ public class DatabaseWriteActivity extends Activity {
     Boolean CheckEditText ;
     String Response;
     HttpResponse response ;
+
+    /* Main function, called upon creation */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_write);
 
+        /* The textfields */
         id = (EditText)findViewById(R.id.editText1);
         name = (EditText)findViewById(R.id.editText2);
         number = (EditText)findViewById(R.id.editText3);
         longitude = (EditText)findViewById(R.id.editText4);
         latitude = (EditText)findViewById(R.id.editText5);
-        //password = (EditText)findViewById(R.id.editText3);
 
+        /* The button */
         register = (Button)findViewById(R.id.button1) ;
 
+        /* Action peformed on buton click */
         register.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                SendDataToServer(GetID, GetNAME, GetNUMBER, GetLONGITUDE, GetLATITUDE);
+                /* We reset the boolean so see if the fields are filled in */
+                GetCheckEditTextIsEmptyOrNot();
 
-/*                GetCheckEditTextIsEmptyOrNot();
-
+                /* If so, we sent this data to the database */
                 if(CheckEditText){
-
                     SendDataToServer(GetID, GetNAME, GetNUMBER, GetLONGITUDE, GetLATITUDE);
-
                 }
+                /* Else we show a message */
                 else {
-
                     Toast.makeText(DatabaseWriteActivity.this, "Please fill all form fields.", Toast.LENGTH_LONG).show();
-
-                }*/
+                }
 
             }
         });
     }
 
-/*    public void GetCheckEditTextIsEmptyOrNot(){
+    /**
+     * GetCheckedEditTestIsEmptyOrNot
+     * -> Sets the boolean CheckEditText to true if
+     *    all fields are filled in.
+     *
+     */
+   public void GetCheckEditTextIsEmptyOrNot(){
 
         GetID = id.getText().toString();
         GetNAME = name.getText().toString();
@@ -84,6 +83,7 @@ public class DatabaseWriteActivity extends Activity {
         GetLONGITUDE = longitude.getText().toString();
         GetLATITUDE = latitude.getText().toString();
 
+       /* All fields should be filled in*/
         if(TextUtils.isEmpty(GetID) || TextUtils.isEmpty(GetNAME) || TextUtils.isEmpty(GetNUMBER) || TextUtils.isEmpty(GetLONGITUDE) || TextUtils.isEmpty(GetLATITUDE))
         {
 
@@ -95,22 +95,33 @@ public class DatabaseWriteActivity extends Activity {
             CheckEditText = true ;
         }
 
-    }*/
+    }
 
+    /**
+     * SendDataToServer
+     * -> Sends the data in the parameters to the database via a POST request.
+     * @param id  - User's id
+     * @param name - etc
+     * @param number
+     * @param longitude
+     * @param latitude
+     */
     public void SendDataToServer(final String id, final String name, final String number, final String longitude, final String latitude){
         class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
 
+                /* Some local variables to use */
                 String QuickID = id ;
                 String QuickNAME = name ;
                 String QuickNUMBER = number ;
                 String QuickLONGITUDE = longitude;
                 String QuickLATITUDE = latitude ;
 
-
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
+
+                /* Me make items in the list of pairs */
                 nameValuePairs.add(new BasicNameValuePair("id", QuickID));
                 nameValuePairs.add(new BasicNameValuePair("name", QuickNAME));
                 nameValuePairs.add(new BasicNameValuePair("number", QuickNUMBER));
@@ -118,6 +129,7 @@ public class DatabaseWriteActivity extends Activity {
                 nameValuePairs.add(new BasicNameValuePair("latitude", QuickLATITUDE));
 
 
+                /* We set up a new request */
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
 
@@ -131,22 +143,22 @@ public class DatabaseWriteActivity extends Activity {
 
 
                 } catch (ClientProtocolException e) {
-
+                    Toast.makeText(DatabaseWriteActivity.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
-
+                    Toast.makeText(DatabaseWriteActivity.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
                 }
-                //return "Data Submit Successfully";
                 return QuickID;
             }
 
+            /* We show a message at the end of a request */
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
-
-                Toast.makeText(DatabaseWriteActivity.this, id, Toast.LENGTH_LONG).show();
+                Toast.makeText(DatabaseWriteActivity.this, "Data sent", Toast.LENGTH_LONG).show();
 
             }
         }
+        /* Here we actually send the data */
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
         sendPostReqAsyncTask.execute(id, name, number, longitude, latitude);
     }
