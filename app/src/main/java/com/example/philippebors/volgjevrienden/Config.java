@@ -6,9 +6,7 @@ package com.example.philippebors.volgjevrienden;
 
 //package net.simplifiedcoding.spinnerexample;
 
-/**
- * Created by Belal on 10/31/2015.
- */
+
 public class Config {
     //JSON URL
     public static final String DATA_URL = "http://nolden.biz/Android/json.php";
@@ -19,7 +17,6 @@ public class Config {
     public static final String TAG_NUMBER = "NUMBER";
     public static final String TAG_LONGITUDE = "LONGITUDE";
     public static final String TAG_LATITUDE = "LATITUDE";
-    public static final String TAG_DATE = "DATE";
 
     //JSON array name
     public static final String JSON_ARRAY = "result";

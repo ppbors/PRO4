@@ -171,17 +171,7 @@ public class DatabaseReadActivity extends AppCompatActivity implements Spinner.O
         return latitude;
     }
 
-/*    //Doing the same with this method as we did with getName()
-    private String getDate(int position){
-        String date="";
-        try {
-            JSONObject json = result.getJSONObject(position);
-            date = json.getString(Config.TAG_DATE);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return date;
-    }*/
+
 
     //this method will execute when we pic an item from the spinner
     @Override
@@ -191,7 +181,6 @@ public class DatabaseReadActivity extends AppCompatActivity implements Spinner.O
         textViewNumber.setText(getNumber(position));
         textViewLongitude.setText(getLongitude(position));
         textViewLatitude.setText(getLatitude(position));
-        //textViewDate.setText(getDate(position));
     }
 
     //When no item is selected this method would execute
@@ -201,6 +190,5 @@ public class DatabaseReadActivity extends AppCompatActivity implements Spinner.O
         textViewNumber.setText("");
         textViewLongitude.setText("");
         textViewLatitude.setText("");
-        //textViewDate.setText("");
     }
 }

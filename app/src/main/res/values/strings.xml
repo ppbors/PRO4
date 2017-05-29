@@ -11,9 +11,9 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_scrolling">My Friends</string>
+    <string name="title_activity_scrolling">Add a friend</string>
     <string name="large_text">
-        "Here we show your friends.\n\n"
+        "Here you can add a new friend. Your friends will be displayed under "Friends" \n\n"
     </string>
     <string name="action_settings">Settings</string>
 </resources>

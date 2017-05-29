@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 public class DatabaseWriteActivity extends Activity {
 
-    EditText id, name, number, longitude, latitude;
+    EditText id, name, number; //longitude, latitude;
     String GetID, GetNAME, GetNUMBER, GetLONGITUDE, GetLATITUDE;
     Button register ;
     String DataParseUrl = "http://nolden.biz/Android/insert-registration-data.php" ;
@@ -42,8 +42,8 @@ public class DatabaseWriteActivity extends Activity {
         id = (EditText)findViewById(R.id.editText1);
         name = (EditText)findViewById(R.id.editText2);
         number = (EditText)findViewById(R.id.editText3);
-        longitude = (EditText)findViewById(R.id.editText4);
-        latitude = (EditText)findViewById(R.id.editText5);
+//        longitude = (EditText)findViewById(R.id.editText4);
+//        latitude = (EditText)findViewById(R.id.editText5);
 
         /* The button */
         register = (Button)findViewById(R.id.button1) ;
@@ -57,8 +57,8 @@ public class DatabaseWriteActivity extends Activity {
                 GetCheckEditTextIsEmptyOrNot();
 
                 /* If so, we sent this data to the database */
-                if(CheckEditText){
-                    SendDataToServer(GetID, GetNAME, GetNUMBER, GetLONGITUDE, GetLATITUDE);
+                if (CheckEditText) {
+                    SendDataToServer(GetID, GetNAME, GetNUMBER);
                 }
                 /* Else we show a message */
                 else {
@@ -80,15 +80,12 @@ public class DatabaseWriteActivity extends Activity {
         GetID = id.getText().toString();
         GetNAME = name.getText().toString();
         GetNUMBER = number.getText().toString();
-        GetLONGITUDE = longitude.getText().toString();
-        GetLATITUDE = latitude.getText().toString();
+//        GetLONGITUDE = longitude.getText().toString();
+//        GetLATITUDE = latitude.getText().toString();
 
        /* All fields should be filled in*/
-        if(TextUtils.isEmpty(GetID) || TextUtils.isEmpty(GetNAME) || TextUtils.isEmpty(GetNUMBER) || TextUtils.isEmpty(GetLONGITUDE) || TextUtils.isEmpty(GetLATITUDE))
-        {
-
+        if(TextUtils.isEmpty(GetID) || TextUtils.isEmpty(GetNAME) || TextUtils.isEmpty(GetNUMBER)) {
             CheckEditText = false;
-
         }
         else {
 
@@ -103,10 +100,12 @@ public class DatabaseWriteActivity extends Activity {
      * @param id  - User's id
      * @param name - etc
      * @param number
-     * @param longitude
-     * @param latitude
      */
-    public void SendDataToServer(final String id, final String name, final String number, final String longitude, final String latitude){
+    public void SendDataToServer(final String id, final String name, final String number){
+
+        final String currentLongitude = String.valueOf(MapsActivity.myLastLongitude);
+        final String currentLatitude = String.valueOf(MapsActivity.myLastLatitude);
+
         class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
@@ -115,8 +114,8 @@ public class DatabaseWriteActivity extends Activity {
                 String QuickID = id ;
                 String QuickNAME = name ;
                 String QuickNUMBER = number ;
-                String QuickLONGITUDE = longitude;
-                String QuickLATITUDE = latitude ;
+                String QuickLONGITUDE = currentLongitude;
+                String QuickLATITUDE = currentLatitude;
 
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
@@ -160,7 +159,7 @@ public class DatabaseWriteActivity extends Activity {
         }
         /* Here we actually send the data */
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-        sendPostReqAsyncTask.execute(id, name, number, longitude, latitude);
+        sendPostReqAsyncTask.execute(id, name, number, currentLongitude, currentLatitude);
     }
 
 }

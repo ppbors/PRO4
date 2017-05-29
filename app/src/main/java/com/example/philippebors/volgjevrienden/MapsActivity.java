@@ -39,6 +39,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static final String EXTRA_MESSAGE = "com.example.volgjevrienden.MESSAGE";
     public static boolean loggedIn = false;
 
+    /* Public values for the database */
+    public static double myLastLongitude;
+    public static double myLastLatitude;
+
 
 
     /**
@@ -165,6 +169,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
+        updatePublicLatLong(currentLatitude, currentLongitude);
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
 
         MarkerOptions options = new MarkerOptions()
@@ -173,6 +178,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.clear(); /* This clears all markers, can be troublesome for multiple markers */
         mMap.addMarker(options);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+    }
+
+    private void updatePublicLatLong(double currentLatitude, double currentLongitude) {
+        myLastLatitude = currentLatitude;
+        myLastLongitude = currentLongitude;
     }
 
 

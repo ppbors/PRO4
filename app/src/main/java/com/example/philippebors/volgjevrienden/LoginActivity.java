@@ -154,7 +154,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isNumberValid(String number) {
-        //TODO: Replace this with your own logic
         return number.contains("06") && number.length() == 10;
     }
 
