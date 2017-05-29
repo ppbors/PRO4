@@ -140,7 +140,7 @@ public class DatabaseWriteActivity extends Activity {
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
                 Toast.makeText(DatabaseWriteActivity.this, "Data sent", Toast.LENGTH_LONG).show();
-
+                MapsActivity.loggedIn = true;
             }
         }
         /* Here we actually send the data */

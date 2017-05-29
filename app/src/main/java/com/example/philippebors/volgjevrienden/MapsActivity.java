@@ -163,6 +163,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (loggedIn) {
             View view = findViewById(R.id.button2);
             view.setVisibility(View.VISIBLE);
+            View view2 = findViewById(R.id.button_menu3);
+            view2.setVisibility(View.GONE);
         }
         Log.d(TAG, location.toString());
 
@@ -178,6 +180,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(options);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
+
 
     /**
      * updatePublicLatLong
