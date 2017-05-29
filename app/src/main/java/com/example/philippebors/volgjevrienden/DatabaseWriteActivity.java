@@ -14,6 +14,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -135,12 +136,22 @@ public class DatabaseWriteActivity extends Activity {
                 return QuickNAME;
             }
 
+            /* Can be used to ask for a picture in the phone gallery */
+            protected Intent getPicture() {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 101);
+                return intent;
+            }
+
             /* We show a message at the end of a request */
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
                 Toast.makeText(DatabaseWriteActivity.this, "Data sent", Toast.LENGTH_LONG).show();
                 MapsActivity.loggedIn = true;
+                finish();
             }
         }
         /* Here we actually send the data */

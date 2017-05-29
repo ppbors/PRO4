@@ -239,15 +239,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         handleNewLocation(location);
     }
 
-    /**
-     * sendMessage
-     * -> Whenever the button is pressed, this method is called
-     * @param view  - The view of the button
-     */
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
 
     public void connectDatabase(View view){
         Intent intent = new Intent(this, DatabaseReadActivity.class);
