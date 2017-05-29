@@ -32,42 +32,27 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
     private int curMapTypeIndex = 0;
 
     @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-    }
+    public void onConnected(@Nullable Bundle bundle) {}
 
     @Override
-    public void onConnectionSuspended(int i) {
-
-    }
+    public void onConnectionSuspended(int i) {}
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
 
     @Override
-    public void onInfoWindowClick(Marker marker) {
-
-    }
-
-
+    public void onInfoWindowClick(Marker marker) {}
 
     @Override
-    public void onMapClick(LatLng latLng) {
-
-    }
+    public void onMapClick(LatLng latLng) {}
 
     @Override
-    public void onMapLongClick(LatLng latLng) {
-
-    }
+    public void onMapLongClick(LatLng latLng) {}
 
     @Override
     public boolean onMarkerClick(Marker marker) {
         return false;
     }
-
 
 }
 

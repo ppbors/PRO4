@@ -210,7 +210,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * onConnectionFailed
-     * -> Tries to handle a failed connection. If unsuccessful, it shows
+     * -> Tries to handle a failed connection. If unsuccessful, it logs
      *    the error message.
      *
      * @param connectionResult  - A result of a connection made (or not)
