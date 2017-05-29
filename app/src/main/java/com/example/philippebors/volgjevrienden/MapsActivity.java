@@ -24,7 +24,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-// Dit is een oefencomment23
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -180,6 +179,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 
+    /**
+     * updatePublicLatLong
+     * -> Updates the public members with a new location so the database
+     *    can use it.
+     * @param currentLatitude  -  Last known latitude
+     * @param currentLongitude -  Last known longitude
+     */
     private void updatePublicLatLong(double currentLatitude, double currentLongitude) {
         myLastLatitude = currentLatitude;
         myLastLongitude = currentLongitude;

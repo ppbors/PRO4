@@ -24,13 +24,11 @@ import android.widget.Toast;
 
 public class DatabaseWriteActivity extends Activity {
 
-    EditText id, name, number; //longitude, latitude;
-    String GetID, GetNAME, GetNUMBER, GetLONGITUDE, GetLATITUDE;
-    Button register ;
-    String DataParseUrl = "http://nolden.biz/Android/insert-registration-data.php" ;
-    Boolean CheckEditText ;
-    String Response;
-    HttpResponse response ;
+    private EditText name, number;
+    private String GetNAME, GetNUMBER;
+    private Button register ;
+    private String DataParseUrl = "http://nolden.biz/Android/insert-registration-data.php" ;
+    private Boolean CheckEditText ;
 
     /* Main function, called upon creation */
     @Override
@@ -39,11 +37,8 @@ public class DatabaseWriteActivity extends Activity {
         setContentView(R.layout.activity_database_write);
 
         /* The textfields */
-        id = (EditText)findViewById(R.id.editText1);
         name = (EditText)findViewById(R.id.editText2);
         number = (EditText)findViewById(R.id.editText3);
-//        longitude = (EditText)findViewById(R.id.editText4);
-//        latitude = (EditText)findViewById(R.id.editText5);
 
         /* The button */
         register = (Button)findViewById(R.id.button1) ;
@@ -58,13 +53,12 @@ public class DatabaseWriteActivity extends Activity {
 
                 /* If so, we sent this data to the database */
                 if (CheckEditText) {
-                    SendDataToServer(GetID, GetNAME, GetNUMBER);
+                    SendDataToServer(GetNAME, GetNUMBER);
                 }
                 /* Else we show a message */
                 else {
                     Toast.makeText(DatabaseWriteActivity.this, "Please fill all form fields.", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
     }
@@ -77,31 +71,25 @@ public class DatabaseWriteActivity extends Activity {
      */
    public void GetCheckEditTextIsEmptyOrNot(){
 
-        GetID = id.getText().toString();
         GetNAME = name.getText().toString();
         GetNUMBER = number.getText().toString();
-//        GetLONGITUDE = longitude.getText().toString();
-//        GetLATITUDE = latitude.getText().toString();
 
        /* All fields should be filled in*/
-        if(TextUtils.isEmpty(GetID) || TextUtils.isEmpty(GetNAME) || TextUtils.isEmpty(GetNUMBER)) {
+        if (TextUtils.isEmpty(GetNAME) || TextUtils.isEmpty(GetNUMBER)) {
             CheckEditText = false;
         }
         else {
-
             CheckEditText = true ;
         }
-
     }
 
     /**
      * SendDataToServer
      * -> Sends the data in the parameters to the database via a POST request.
-     * @param id  - User's id
-     * @param name - etc
-     * @param number
+     * @param name - The name the user entered
+     * @param number - The mobile number the user entered
      */
-    public void SendDataToServer(final String id, final String name, final String number){
+    public void SendDataToServer(final String name, final String number){
 
         final String currentLongitude = String.valueOf(MapsActivity.myLastLongitude);
         final String currentLatitude = String.valueOf(MapsActivity.myLastLatitude);
@@ -111,7 +99,6 @@ public class DatabaseWriteActivity extends Activity {
             protected String doInBackground(String... params) {
 
                 /* Some local variables to use */
-                String QuickID = id ;
                 String QuickNAME = name ;
                 String QuickNUMBER = number ;
                 String QuickLONGITUDE = currentLongitude;
@@ -121,7 +108,6 @@ public class DatabaseWriteActivity extends Activity {
 
 
                 /* Me make items in the list of pairs */
-                nameValuePairs.add(new BasicNameValuePair("id", QuickID));
                 nameValuePairs.add(new BasicNameValuePair("name", QuickNAME));
                 nameValuePairs.add(new BasicNameValuePair("number", QuickNUMBER));
                 nameValuePairs.add(new BasicNameValuePair("longitude", QuickLONGITUDE));
@@ -146,7 +132,7 @@ public class DatabaseWriteActivity extends Activity {
                 } catch (IOException e) {
                     Toast.makeText(DatabaseWriteActivity.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
                 }
-                return QuickID;
+                return QuickNAME;
             }
 
             /* We show a message at the end of a request */
@@ -159,7 +145,7 @@ public class DatabaseWriteActivity extends Activity {
         }
         /* Here we actually send the data */
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-        sendPostReqAsyncTask.execute(id, name, number, currentLongitude, currentLatitude);
+        sendPostReqAsyncTask.execute(name, number, currentLongitude, currentLatitude);
     }
 
 }

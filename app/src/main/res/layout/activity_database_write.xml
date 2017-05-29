@@ -23,29 +23,17 @@
         />
 
     <EditText
-        android:id="@+id/editText1"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="ENTER YOUR ID"
-        android:background="#fbfefd"
-        android:gravity="center" >
-    </EditText>
-
-    <EditText
         android:id="@+id/editText2"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/editText1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="21dp"
         android:ems="10"
         android:hint="ENTER YOUR NAME"
         android:background="#fbfefd"
-        android:gravity="center" >
+        android:gravity="center"
+        android:layout_below="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <requestFocus />
     </EditText>
 
@@ -53,49 +41,24 @@
         android:id="@+id/editText3"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_below="@+id/editText2"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
         android:ems="10"
         android:hint="ENTER YOUR NUMBER"
         android:background="#fbfefd"
-        android:gravity="center" />
-
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/editText3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="ENTER YOUR LONGITUDE"
-        android:background="#fbfefd"
-        android:gravity="center" >
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_below="@+id/editText4"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:hint="ENTER YOUR LATITUDE"
-        android:background="#fbfefd"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_below="@+id/editText2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText5"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="75dp"
         android:text="REGISTER"
         android:background="#d8dbdb"
-        />
+        android:layout_below="@+id/editText3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
