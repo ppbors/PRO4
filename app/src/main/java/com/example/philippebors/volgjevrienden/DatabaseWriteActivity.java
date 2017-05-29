@@ -135,14 +135,15 @@ public class DatabaseWriteActivity extends Activity {
                 } catch (IOException e) {
 
                 }
-                return "Data Submit Successfully";
+                //return "Data Submit Successfully";
+                return QuickID;
             }
 
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
 
-                Toast.makeText(DatabaseWriteActivity.this, "Data Submit Successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(DatabaseWriteActivity.this, id, Toast.LENGTH_LONG).show();
 
             }
         }
