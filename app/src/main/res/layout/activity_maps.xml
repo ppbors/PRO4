@@ -16,10 +16,21 @@ tools:context=".MapsActivity">
         android:layout_height="wrap_content"
         android:background="#ff0000"
         android:src="@drawable/ic_menu"
-        android:onClick="readDatabaseList"
+        android:onClick="ToonAlleData"
         android:layout_below="@+id/button2"
         android:layout_toRightOf="@+id/button2"
         android:layout_toEndOf="@+id/button2" />
+
+    <ImageButton
+        android:id="@+id/button_menu4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00ff00"
+        android:src="@drawable/ic_menu"
+        android:onClick="ToonJeVrienden"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/button_menu2"
+        android:layout_toEndOf="@+id/button_menu2" />
 
     <ImageButton
         android:id="@+id/button_menu3"

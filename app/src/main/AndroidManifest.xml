@@ -59,7 +59,10 @@
             android:name=".FriendActivity"
             android:label="Your Friends" />
         <activity
-            android:name=".DatabaseReadActivity"
+            android:name=".ToonJeVrienden"
+            android:label="Your Friends" />
+        <activity
+            android:name=".ToonAlleData"
             android:label="Your Friends" />
         <activity
             android:name=".DatabaseWriteActivity"
