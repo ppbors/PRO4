@@ -23,7 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class DatabaseWriteActivity extends Activity {
+public class AccountRegistreren extends Activity {
 
     private EditText name, number;
     private String GetNAME, GetNUMBER;
@@ -35,7 +35,7 @@ public class DatabaseWriteActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_database_write);
+        setContentView(R.layout.activity_register);
 
         /* The textfields */
         name = (EditText)findViewById(R.id.editText2);
@@ -58,7 +58,7 @@ public class DatabaseWriteActivity extends Activity {
                 }
                 /* Else we show a message */
                 else {
-                    Toast.makeText(DatabaseWriteActivity.this, "Please fill all form fields.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountRegistreren.this, "Please fill all form fields.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -129,9 +129,9 @@ public class DatabaseWriteActivity extends Activity {
 
 
                 } catch (ClientProtocolException e) {
-                    Toast.makeText(DatabaseWriteActivity.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountRegistreren.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
-                    Toast.makeText(DatabaseWriteActivity.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountRegistreren.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
                 }
                 return QuickNAME;
             }
@@ -149,7 +149,7 @@ public class DatabaseWriteActivity extends Activity {
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
-                Toast.makeText(DatabaseWriteActivity.this, "Data sent", Toast.LENGTH_LONG).show();
+                Toast.makeText(AccountRegistreren.this, "Data sent", Toast.LENGTH_LONG).show();
                 MapsActivity.loggedIn = true;
                 finish();
             }
