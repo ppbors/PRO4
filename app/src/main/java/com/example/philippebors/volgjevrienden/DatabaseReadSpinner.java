@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class DatabaseReadActivity extends AppCompatActivity implements Spinner.OnItemSelectedListener{
+public class DatabaseReadSpinner extends AppCompatActivity implements Spinner.OnItemSelectedListener{
 
     /* Haalt data uit JSON en zet ze in een Android Spinner.*/
 
@@ -43,7 +43,7 @@ public class DatabaseReadActivity extends AppCompatActivity implements Spinner.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_database_read);
+        setContentView(R.layout.activity_database_read_spinner);
 
         //Initializing the ArrayList
         students = new ArrayList<String>();
@@ -116,7 +116,7 @@ public class DatabaseReadActivity extends AppCompatActivity implements Spinner.O
         }
 
         //Setting adapter to show the items in the spinner
-        spinner.setAdapter(new ArrayAdapter<String>(DatabaseReadActivity.this, android.R.layout.simple_spinner_dropdown_item, students));
+        spinner.setAdapter(new ArrayAdapter<String>(DatabaseReadSpinner.this, android.R.layout.simple_spinner_dropdown_item, students));
     }
 
     //Method to get student name of a particular position
