@@ -28,7 +28,7 @@ public class AccountRegistreren extends Activity {
     private EditText name, number;
     private String GetNAME, GetNUMBER;
     private Button register ;
-    private String DataParseUrl = "http://nolden.biz/Android/insert-registration-data.php" ;
+    private String DataParseUrl = "http://nolden.biz/Android/registerAccount.php" ;
     private Boolean CheckEditText;
     private Boolean NumberCorrect = true;
 
