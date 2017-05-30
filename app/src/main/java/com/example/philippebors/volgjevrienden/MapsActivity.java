@@ -240,7 +240,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    public void connectDatabase(View view){
+    public void readDatabaseSpinner(View view){
         Intent intent = new Intent(this, DatabaseReadSpinner.class);
         startActivity(intent);
 
@@ -257,7 +257,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
-    public void readDatabase(View view) {
+    public void readDatabaseList(View view) {
         Intent intent = new Intent(this, DatabaseReadList.class);
         startActivity(intent);
     }

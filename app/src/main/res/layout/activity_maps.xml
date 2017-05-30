@@ -14,8 +14,9 @@ tools:context=".MapsActivity">
         android:id="@+id/button_menu2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#ff0000"
         android:src="@drawable/ic_menu"
-        android:onClick="connectDatabase"
+        android:onClick="readDatabaseList"
         android:layout_below="@+id/button2"
         android:layout_toRightOf="@+id/button2"
         android:layout_toEndOf="@+id/button2" />
@@ -31,17 +32,6 @@ tools:context=".MapsActivity">
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <ImageButton
-        android:id="@+id/button_menu4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/button_menu3"
-        android:background="@android:drawable/stat_sys_download"
-        android:onClick="readDatabase"
-        android:src="@drawable/ic_menu" />
 
     <Button
         android:id="@+id/button2"

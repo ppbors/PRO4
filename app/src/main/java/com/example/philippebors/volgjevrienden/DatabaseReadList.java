@@ -26,6 +26,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
 public class DatabaseReadList extends Activity {
     TextView text;
     @Override
@@ -62,11 +72,11 @@ public class DatabaseReadList extends Activity {
                     String tijdstip=obj.getString("TIJDSTIP");
 
                     Log.e("STRING", name);
-                    r.add(id);
+                    //r.add(id);
                     r.add(name);
-                    r.add(longitude);
-                    r.add(latitude);
-                    r.add(tijdstip);
+                    //r.add(longitude);
+                    //r.add(latitude);
+                    //r.add(tijdstip);
                     list.setAdapter(adapter);
 
                 }
@@ -84,6 +94,28 @@ public class DatabaseReadList extends Activity {
 
 
     }
+
+/*    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Select The Action");
+        menu.add(0, v.getId(), 0, "Call");//groupId, itemId, order, title
+        menu.add(0, v.getId(), 0, "SMS");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        if(item.getTitle()=="Call"){
+            Toast.makeText(getApplicationContext(),"calling code",Toast.LENGTH_LONG).show();
+        }
+        else if(item.getTitle()=="SMS"){
+            Toast.makeText(getApplicationContext(),"sending sms code",Toast.LENGTH_LONG).show();
+        }else{
+            return false;
+        }
+        return true;
+    }*/
 
 
 }
