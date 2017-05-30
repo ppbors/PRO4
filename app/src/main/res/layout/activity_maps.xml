@@ -23,14 +23,24 @@ tools:context=".MapsActivity">
 
     <ImageButton
         android:id="@+id/button_menu4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imageButton"
+        android:layout_alignRight="@+id/imageButton"
+        android:layout_below="@+id/button_menu2"
+        android:onClick="Login"
+        android:src="@drawable/ic_menu" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#00ff00"
-        android:src="@drawable/ic_menu"
-        android:onClick="ToonJeVrienden"
         android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/button_menu2"
         android:layout_toRightOf="@+id/button_menu2"
-        android:layout_toEndOf="@+id/button_menu2" />
+        android:background="#00ff00"
+        android:onClick="ToonJeVrienden"
+        android:src="@drawable/ic_menu" />
 
     <ImageButton
         android:id="@+id/button_menu3"

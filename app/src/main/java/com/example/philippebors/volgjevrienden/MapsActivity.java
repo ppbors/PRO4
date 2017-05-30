@@ -12,6 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -23,6 +28,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -41,6 +52,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /* Public values for the database */
     public static double myLastLongitude;
     public static double myLastLatitude;
+
+    //An ArrayList for Spinner Items
+    ArrayList<String> students;
+
+    //JSON Array
+    JSONArray result;
 
 
 
@@ -108,11 +125,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        /* Here you can add some stuff for testing */
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney)); // not needed now
     }
 
 
@@ -160,11 +172,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void handleNewLocation(Location location) {
         /* Laat de vriendenknop zien als je bent ingelogd */
+        findData();
         if (loggedIn) {
             View view = findViewById(R.id.button2);
             view.setVisibility(View.VISIBLE);
             View view2 = findViewById(R.id.button_menu3);
-            view2.setVisibility(View.GONE);
+           // view2.setVisibility(View.GONE);
         }
         Log.d(TAG, location.toString());
 
@@ -176,11 +189,119 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MarkerOptions options = new MarkerOptions()
                 .position(latLng)
                 .title("I am here!");
-        mMap.clear(); /* This clears all markers, can be troublesome for multiple markers */
+        //mMap.clear(); /* This clears all markers, can be troublesome for multiple markers */
         mMap.addMarker(options);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 
+    private void findData() {
+
+        students = new ArrayList<String>();
+        StringRequest stringRequest = new StringRequest(Config.DATA_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject j = null;
+                        try {
+                            //Parsing the fetched Json String to JSON Object
+                            j = new JSONObject(response);
+
+                            //Storing the Array of JSON String to our JSON Array
+                            result = j.getJSONArray(Config.JSON_ARRAY);
+
+                            //Calling method getStudents to get the students from the JSON Array
+                            getStudents(result);
+                            setFriendsOnMap(result);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+
+        //Creating a request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+
+    }
+
+
+    private void setFriendsOnMap(JSONArray j) {
+        for (int i = 0; i < j.length(); i++) {
+            double longitude = Double.parseDouble(getLongitude(i));
+            double latitude = Double.parseDouble(getLatitude(i));
+            String number = getNumber(i);
+            LatLng latLng = new LatLng(latitude, longitude);
+
+            MarkerOptions options = new MarkerOptions()
+                    .position(latLng)
+                    .title(number);
+            mMap.addMarker(options);
+
+
+        }
+    }
+
+
+
+    private void getStudents(JSONArray j){
+        //Traversing through all the items in the json array
+        for(int i=0;i<j.length();i++){
+            try {
+                //Getting json object
+                JSONObject json = j.getJSONObject(i);
+
+                //Adding the name of the student to array list
+                students.add(json.getString(Config.TAG_NAME));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    //Doing the same with this method as we did with getName()
+    public String getNumber(int position){
+        String number="";
+        try {
+            JSONObject json = result.getJSONObject(position);
+            number = json.getString(Config.TAG_NUMBER);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return number;
+    }
+
+    //Doing the same with this method as we did with getName()
+    public String getLongitude(int position){
+        String Longitude="";
+        try {
+            JSONObject json = result.getJSONObject(position);
+            Longitude = json.getString(Config.TAG_LONGITUDE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return Longitude;
+    }
+
+    //Doing the same with this method as we did with getName()
+    public String getLatitude(int position){
+        String latitude="";
+        try {
+            JSONObject json = result.getJSONObject(position);
+            latitude = json.getString(Config.TAG_LATITUDE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return latitude;
+    }
 
     /**
      * updatePublicLatLong
@@ -262,4 +383,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
+    public void Login(View view) {
+        Intent intent = new Intent(this, AccountLogin.class);
+        startActivity(intent);
+    }
 }

@@ -29,6 +29,5 @@ public class ScrollingActivity extends AppCompatActivity {
     private void addFriend() {
         Intent intent = new Intent(this, FriendActivity.class);
         startActivity(intent);
-
     }
 }

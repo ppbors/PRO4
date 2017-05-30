@@ -17,4 +17,5 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="Testje">Register</string>
+    <string name="title_activity_account_login">AccountLogin</string>
 </resources>

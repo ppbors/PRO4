@@ -38,7 +38,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
     private TextView textViewNumber;
     private TextView textViewLongitude;
     private TextView textViewLatitude;
-    //private TextView textViewDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +60,11 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
         textViewNumber = (TextView) findViewById(R.id.textViewNumber);
         textViewLongitude = (TextView) findViewById(R.id.textViewLongitude);
         textViewLatitude = (TextView) findViewById(R.id.textViewLatitude);
-    //    textViewDate = (TextView) findViewById(R.id.textViewDate);
 
         //This method will fetch the data from the URL
         getData();
     }
+
 
     private void getData(){
         //Creating a string request
@@ -136,7 +136,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
     }
 
     //Doing the same with this method as we did with getName()
-    private String getNumber(int position){
+    public String getNumber(int position){
         String number="";
         try {
             JSONObject json = result.getJSONObject(position);
@@ -148,7 +148,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
     }
 
     //Doing the same with this method as we did with getName()
-    private String getLongitude(int position){
+    public String getLongitude(int position){
         String Longitude="";
         try {
             JSONObject json = result.getJSONObject(position);
@@ -160,7 +160,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
     }
 
     //Doing the same with this method as we did with getName()
-    private String getLatitude(int position){
+    public String getLatitude(int position){
         String latitude="";
         try {
             JSONObject json = result.getJSONObject(position);
