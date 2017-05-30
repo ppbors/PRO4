@@ -44,7 +44,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".AccountLogin"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,8 +68,7 @@
             android:name=".AccountRegistreren"
             android:label="Your Friends" />
         <activity
-            android:name=".AccountLogin"
-            android:label="@string/title_activity_account_login"
+            android:name=".MapsActivity"
             android:theme="@style/AppTheme"></activity>
     </application>
 

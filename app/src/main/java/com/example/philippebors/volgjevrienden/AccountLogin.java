@@ -1,5 +1,7 @@
 package com.example.philippebors.volgjevrienden;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,11 +13,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AccountLogin extends AppCompatActivity {
     private EditText number;
     private Button login;
     private boolean CheckEditText;
     private String GetNUMBER;
+    private String DataParseUrl = "http://nolden.biz/Android/loginAccount.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +42,7 @@ public class AccountLogin extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         number = (EditText)findViewById(R.id.editText3);
-        login = (Button)findViewById(R.id.button1);
+        login = (Button)findViewById(R.id.button3);
 
         login.setOnClickListener(new View.OnClickListener() {
 
@@ -37,6 +54,7 @@ public class AccountLogin extends AppCompatActivity {
                 /* If so, we sent this data to the database */
                 if (CheckEditText) {
                     /*Check of nummer in database is, zo ja verbind, zo nee dan niet*/
+                    sendDataToServer(GetNUMBER);
                 }
                 /* Else we show a message */
                 else {
@@ -45,6 +63,49 @@ public class AccountLogin extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void sendDataToServer(final String number) {
+
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                /* Some local variables to use */
+                String QuickNUMBER = number;
+
+
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+
+                /* Me make items in the list of pairs */
+                nameValuePairs.add(new BasicNameValuePair("number", QuickNUMBER));
+
+
+
+                /* We set up a new request */
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+
+                    HttpPost httpPost = new HttpPost(DataParseUrl);
+
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+
+                    HttpEntity entity = response.getEntity();
+
+
+                } catch (ClientProtocolException e) {
+                    Toast.makeText(AccountLogin.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    Toast.makeText(AccountLogin.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                }
+                return QuickNUMBER;
+            }
+        }
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+        sendPostReqAsyncTask.execute(number);
     }
 
     public void GetCheckEditTextIsEmptyOrNot(){
@@ -58,5 +119,10 @@ public class AccountLogin extends AppCompatActivity {
         else {
             CheckEditText = true ;
         }
+    }
+
+    public void registerCalled(View view) {
+        Intent intent = new Intent(this, AccountRegistreren.class);
+        startActivity(intent);
     }
 }
