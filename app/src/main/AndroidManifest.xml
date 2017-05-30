@@ -65,7 +65,7 @@
             android:name=".ToonAlleData"
             android:label="Your Friends" />
         <activity
-            android:name=".DatabaseWriteActivity"
+            android:name=".AccountRegistreren"
             android:label="Your Friends" />
 
     </application>
