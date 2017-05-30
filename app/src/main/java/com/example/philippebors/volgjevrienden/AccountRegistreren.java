@@ -29,7 +29,8 @@ public class AccountRegistreren extends Activity {
     private String GetNAME, GetNUMBER;
     private Button register ;
     private String DataParseUrl = "http://nolden.biz/Android/insert-registration-data.php" ;
-    private Boolean CheckEditText ;
+    private Boolean CheckEditText;
+    private Boolean NumberCorrect = true;
 
     /* Main function, called upon creation */
     @Override
@@ -53,12 +54,15 @@ public class AccountRegistreren extends Activity {
                 GetCheckEditTextIsEmptyOrNot();
 
                 /* If so, we sent this data to the database */
-                if (CheckEditText) {
+                if (CheckEditText && NumberCorrect) {
                     SendDataToServer(GetNAME, GetNUMBER);
                 }
                 /* Else we show a message */
-                else {
+                else if (!CheckEditText){
                     Toast.makeText(AccountRegistreren.this, "Please fill all form fields.", Toast.LENGTH_LONG).show();
+                }
+                else if (!NumberCorrect){
+                    Toast.makeText(AccountRegistreren.this, "Your number should have 9 digits, starting with 6.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -82,6 +86,12 @@ public class AccountRegistreren extends Activity {
         else {
             CheckEditText = true ;
         }
+
+//       int length = GetNUMBER.length();
+//
+//       if(length != 9){
+//           NumberCorrect = false;
+//       }
     }
 
     /**
