@@ -26,7 +26,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
     public static final String DATA_URL = "http://nolden.biz/Android/json.php";
 
     //Tags used in the JSON String
-    //public static final String TAG_ID = "ID";
+    public static final String TAG_ID = "ID";
     public static final String TAG_NAME = "NAME";
     public static final String TAG_NUMBER = "NUMBER";
     public static final String TAG_LONGITUDE = "LONGITUDE";
@@ -134,20 +134,20 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
     }
 
     //Method to get student name of a particular position
-//    private String getID(int position){
-//        String ID="";
-//        try {
-//            //Getting object of given index
-//            JSONObject json = result.getJSONObject(position);
-//
-//            //Fetching name from that object
-//            ID = json.getString(TAG_ID);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        //Returning the name
-//        return ID;
-//    }
+    private String getID(int position){
+        String ID="";
+        try {
+            //Getting object of given index
+            JSONObject json = result.getJSONObject(position);
+
+            //Fetching name from that object
+            ID = json.getString(TAG_ID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //Returning the name
+        return ID;
+    }
 
     //Doing the same with this method as we did with getName()
     public String getNumber(int position){
@@ -191,7 +191,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //Setting the values to textviews for a selected item 
-        //textViewName.setText(getID(position));
+        textViewName.setText(getID(position));
         textViewNumber.setText(getNumber(position));
         textViewLongitude.setText(getLongitude(position));
         textViewLatitude.setText(getLatitude(position));
