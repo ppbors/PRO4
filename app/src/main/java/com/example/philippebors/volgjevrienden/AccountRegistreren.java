@@ -160,7 +160,7 @@ public class AccountRegistreren extends Activity {
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
                 Toast.makeText(AccountRegistreren.this, "Data sent", Toast.LENGTH_LONG).show();
-                MapsActivity.loggedIn = true;
+                //MapsActivity.loggedIn = false;
                 finish();
             }
         }
