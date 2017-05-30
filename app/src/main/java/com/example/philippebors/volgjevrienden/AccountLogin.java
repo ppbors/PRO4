@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -24,8 +25,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class AccountLogin extends AppCompatActivity {
     private EditText number;
@@ -33,6 +37,7 @@ public class AccountLogin extends AppCompatActivity {
     private boolean CheckEditText;
     private String GetNUMBER;
     private String DataParseUrl = "http://nolden.biz/Android/loginAccount.php";
+    private boolean isOke = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,9 @@ public class AccountLogin extends AppCompatActivity {
                 if (CheckEditText) {
                     /*Check of nummer in database is, zo ja verbind, zo nee dan niet*/
                     sendDataToServer(GetNUMBER);
+                    if (readTextFile()) {
+                        isOke = true;
+                    }
                 }
                 /* Else we show a message */
                 else {
@@ -63,6 +71,31 @@ public class AccountLogin extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean readTextFile() {
+        try {
+
+
+
+
+            InputStream input = new URL("http://nolden.biz/Android/status.txt").openStream();
+            String myString = IOUtils.toString(input, "UTF-8");
+
+
+            if (myString == "1") {
+                return true;
+            }
+            else return false;
+
+        }
+        catch(IOException ex) {
+            // there was some connection problem, or the file did not exist on the server,
+            // or your URL was not in the right format.
+            // think about what to do now, and put it here.
+            ex.printStackTrace(); // for now, simply output it.
+        }
+        return false;
     }
 
     private void sendDataToServer(final String number) {
@@ -124,5 +157,12 @@ public class AccountLogin extends AppCompatActivity {
     public void registerCalled(View view) {
         Intent intent = new Intent(this, AccountRegistreren.class);
         startActivity(intent);
+    }
+
+    public void loginClicked(View view) {
+        if (isOke) {
+            Intent intent = new Intent(this, MapsActivity.class);
+            startActivity(intent);
+        }
     }
 }

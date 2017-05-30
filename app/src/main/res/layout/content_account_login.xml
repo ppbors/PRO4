@@ -18,7 +18,8 @@
         android:layout_below="@+id/editText3"
         android:layout_marginTop="75dp"
         android:background="#d8dbdb"
-        android:text="@string/title_activity_login" />
+        android:text="@string/title_activity_login"
+        android:onClick="loginClicked"/>
 
     <TextView
         android:id="@+id/textView1"

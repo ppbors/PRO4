@@ -391,13 +391,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void ToonAlleData(View view){
         Intent intent = new Intent(this, ToonAlleData.class);
         startActivity(intent);
-
     }
 
     public void writeDatabase(View view){
         Intent intent = new Intent(this, AccountRegistreren.class);
         startActivity(intent);
-
     }
 
     public void friendsButton(View view) {
