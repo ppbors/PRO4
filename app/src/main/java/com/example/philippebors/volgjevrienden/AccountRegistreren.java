@@ -158,5 +158,4 @@ public class AccountRegistreren extends Activity {
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
         sendPostReqAsyncTask.execute(name, number, currentLongitude, currentLatitude);
     }
-
 }

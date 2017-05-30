@@ -59,6 +59,4 @@ public class AccountLogin extends AppCompatActivity {
             CheckEditText = true ;
         }
     }
-
-
 }

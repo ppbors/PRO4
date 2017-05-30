@@ -22,11 +22,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -53,11 +56,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static double myLastLongitude;
     public static double myLastLatitude;
 
-    //An ArrayList for Spinner Items
+    /* An ArrayList */
     ArrayList<String> students;
 
-    //JSON Array
+    /* JSON array */
     JSONArray result;
+
+    private LatLngBounds.Builder builder;
 
 
 
@@ -172,7 +177,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void handleNewLocation(Location location) {
         /* Laat de vriendenknop zien als je bent ingelogd */
-        findData();
         if (loggedIn) {
             View view = findViewById(R.id.button2);
             view.setVisibility(View.VISIBLE);
@@ -189,13 +193,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MarkerOptions options = new MarkerOptions()
                 .position(latLng)
                 .title("I am here!");
-        //mMap.clear(); /* This clears all markers, can be troublesome for multiple markers */
+        mMap.clear(); /* This clears all markers */
         mMap.addMarker(options);
+
+        findData();
+
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 
+    /**
+     * findData
+     * -> Fills the array with the content of the database
+     */
     private void findData() {
-
         students = new ArrayList<String>();
         StringRequest stringRequest = new StringRequest(Config.DATA_URL,
                 new Response.Listener<String>() {
@@ -224,15 +235,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
 
-        //Creating a request queue
+        /* Creating a request queue */
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        //Adding request to the queue
+        /* Adding request to the queue */
         requestQueue.add(stringRequest);
-
     }
 
 
+    /**
+     * setFriendsOnMap
+     * -> Gets the location of a person in the database and
+     *    makes a new marker at that position on the map
+     *
+     * @param j -  The array in which the information is stored
+     */
     private void setFriendsOnMap(JSONArray j) {
         for (int i = 0; i < j.length(); i++) {
             double longitude = Double.parseDouble(getLongitude(i));
@@ -240,17 +257,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String number = getNumber(i);
             LatLng latLng = new LatLng(latitude, longitude);
 
+            /* Add a marker */
             MarkerOptions options = new MarkerOptions()
                     .position(latLng)
                     .title(number);
             mMap.addMarker(options);
-
-
         }
     }
 
 
-
+    /**
+     * getStudents
+     * -> Fills the array with the content of the database
+     * @param j  -
+     */
     private void getStudents(JSONArray j){
         //Traversing through all the items in the json array
         for(int i=0;i<j.length();i++){
@@ -267,7 +287,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    //Doing the same with this method as we did with getName()
+    /**
+     * getNumber
+     * -> Returns the number of a person in the array at location postition
+     * @param position  - The index of the array
+     * @return  - The number of the person
+     */
     public String getNumber(int position){
         String number="";
         try {
@@ -279,7 +304,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return number;
     }
 
-    //Doing the same with this method as we did with getName()
+    /* Same idea as getNumber */
     public String getLongitude(int position){
         String Longitude="";
         try {
@@ -291,7 +316,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return Longitude;
     }
 
-    //Doing the same with this method as we did with getName()
+    /* Same idea as getNumber */
     public String getLatitude(int position){
         String latitude="";
         try {
@@ -361,6 +386,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    /* All methods below this point are connected with buttons and will be called
+       when the buttons are clicked */
     public void ToonAlleData(View view){
         Intent intent = new Intent(this, ToonAlleData.class);
         startActivity(intent);

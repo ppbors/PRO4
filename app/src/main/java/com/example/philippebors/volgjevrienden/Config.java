@@ -1,10 +1,5 @@
 package com.example.philippebors.volgjevrienden;
 
-/**
- * Created by luukie on 24/05/2017.
- */
-
-//package net.simplifiedcoding.spinnerexample;
 
 
 public class Config {
