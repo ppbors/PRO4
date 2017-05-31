@@ -17,12 +17,10 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -34,6 +32,7 @@ public class ToonJeVrienden extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /* After we've sent the data we wait for some time to let the file update */
         sendDataToServer(Config.MY_NUMBER);
         try {
             Thread.sleep(1000);

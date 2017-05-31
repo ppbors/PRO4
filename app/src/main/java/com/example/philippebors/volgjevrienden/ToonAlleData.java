@@ -23,7 +23,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
     private Spinner spinner;
 
     /* An ArrayList for Spinner Items */
-    private ArrayList<String> students;
+    private ArrayList<String> persons;
 
     /* JSON Array */
     private JSONArray result;
@@ -41,7 +41,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
         setContentView(R.layout.activity_toonalledata);
 
         /* Initializing the ArrayList */
-        students = new ArrayList<>();
+        persons = new ArrayList<>();
 
         /* Initializing Spinner */
         spinner = (Spinner) findViewById(R.id.spinner);
@@ -80,8 +80,8 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
                             /* Storing the Array of JSON String to our JSON Array */
                             result = j.getJSONArray(Config.JSON_ARRAY);
 
-                            /* Calling method getStudents to get the students from the JSON Array */
-                            getStudents(result);
+                            /* Calling method getPersons to get the persons from the JSON Array */
+                            getPersons(result);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -102,7 +102,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
     }
 
 
-    private void getStudents(JSONArray j) {
+    private void getPersons(JSONArray j) {
         /* Traversing through all the items in the json array */
         for (int i = 0; i < j.length(); i++) {
             try {
@@ -110,14 +110,14 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
                 JSONObject json = j.getJSONObject(i);
 
                 /* Adding the name of the student to array list */
-                students.add(json.getString(Config.TAG_NAME));
+                persons.add(json.getString(Config.TAG_NAME));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         /* Setting adapter to show the items in the spinner */
-        spinner.setAdapter(new ArrayAdapter<>(ToonAlleData.this, android.R.layout.simple_spinner_dropdown_item, students));
+        spinner.setAdapter(new ArrayAdapter<>(ToonAlleData.this, android.R.layout.simple_spinner_dropdown_item, persons));
     }
 
 
