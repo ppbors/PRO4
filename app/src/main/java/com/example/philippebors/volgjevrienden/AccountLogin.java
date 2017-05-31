@@ -3,6 +3,7 @@ package com.example.philippebors.volgjevrienden;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class AccountLogin extends AppCompatActivity {
@@ -37,7 +39,6 @@ public class AccountLogin extends AppCompatActivity {
     private boolean CheckEditText;
     private String GetNUMBER;
     private String DataParseUrl = "http://nolden.biz/Android/loginAccount.php";
-    private boolean isOke = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,9 @@ public class AccountLogin extends AppCompatActivity {
         setContentView(R.layout.activity_account_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         number = (EditText)findViewById(R.id.editText3);
         login = (Button)findViewById(R.id.button3);
@@ -61,7 +65,8 @@ public class AccountLogin extends AppCompatActivity {
                     /*Check of nummer in database is, zo ja verbind, zo nee dan niet*/
                     sendDataToServer(GetNUMBER);
                     if (readTextFile()) {
-                        isOke = true;
+                        Intent intent = new Intent(v.getContext(), MapsActivity.class);
+                        startActivity(intent);
                     }
                 }
                 /* Else we show a message */
@@ -83,7 +88,8 @@ public class AccountLogin extends AppCompatActivity {
             String myString = IOUtils.toString(input, "UTF-8");
 
 
-            if (myString == "1") {
+            Toast.makeText(AccountLogin.this, myString, Toast.LENGTH_LONG).show();
+            if (Objects.equals(myString, "1")) {
                 return true;
             }
             else return false;
@@ -159,10 +165,6 @@ public class AccountLogin extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void loginClicked(View view) {
-        if (isOke) {
-            Intent intent = new Intent(this, MapsActivity.class);
-            startActivity(intent);
-        }
-    }
+
 }
+
