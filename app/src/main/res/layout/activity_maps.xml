@@ -15,8 +15,8 @@ tools:context=".MapsActivity">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#ff0000"
-        android:src="@drawable/ic_menu"
         android:onClick="ToonAlleData"
+        android:text="All"
         android:layout_below="@+id/button2"
         android:layout_toRightOf="@+id/button2"
         android:layout_toEndOf="@+id/button2" />
@@ -26,7 +26,6 @@ tools:context=".MapsActivity">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#0000ff"
-        android:src="@drawable/ic_menu"
         android:onClick="goToFriends"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageButton"
@@ -40,8 +39,7 @@ tools:context=".MapsActivity">
         android:layout_toEndOf="@+id/button_menu2"
         android:layout_toRightOf="@+id/button_menu2"
         android:background="#00ff00"
-        android:onClick="ToonJeVrienden"
-        android:src="@drawable/ic_menu" />
+        android:onClick="ToonJeVrienden" />
 
     <Button
         android:id="@+id/button2"
@@ -50,9 +48,44 @@ tools:context=".MapsActivity">
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="11dp"
-        android:visibility="gone"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        android:onClick="ToonJeVrienden"
+        android:background="?android:attr/statusBarColor"
         android:text="Friends" />
 
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All Users"
+        android:layout_alignBaseline="@+id/button4"
+        android:layout_alignBottom="@+id/button4"
+        android:layout_toRightOf="@+id/button2"
+        android:layout_toEndOf="@+id/button2"
+        android:onClick="ToonAlleData"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Friend"
+        android:onClick="goToFriends"
+        android:layout_alignBaseline="@+id/button4"
+        android:layout_alignBottom="@+id/button4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp" />
 
 
 </RelativeLayout>
