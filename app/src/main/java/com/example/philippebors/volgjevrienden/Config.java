@@ -10,6 +10,8 @@ public class Config {
     public static final String LOGIN_STATUS_URL = "http://nolden.biz/Android/loginStatus.txt";
     public static final String REGISTER_URL = "http://nolden.biz/Android/registerAccount.php";
     public static final String FRIEND_URL = "http://nolden.biz/Android/addFriendship.php";
+    public static final String FRIENDS_LOCATIONS_URL = "http://nolden.biz/Android/getLocations.php";
+    public static final String CHECK_FRIENDS_URL = "http://nolden.biz/Android/temp.txt";
 
     public static String MY_NUMBER = "";
 

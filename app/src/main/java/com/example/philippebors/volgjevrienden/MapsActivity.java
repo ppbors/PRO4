@@ -217,7 +217,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void findData() {
         students = new ArrayList<String>();
-        StringRequest stringRequest = new StringRequest(Config.DATA_URL,
+        StringRequest stringRequest = new StringRequest(Config.FRIENDS_LOCATIONS_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -307,7 +307,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String number="";
         try {
             JSONObject json = result.getJSONObject(position);
-            number = json.getString(Config.TAG_NUMBER);
+            number = json.getString(Config.TAG_NAME);
         } catch (JSONException e) {
             e.printStackTrace();
         }

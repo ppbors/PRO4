@@ -38,8 +38,13 @@ public class ToonJeVrienden extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toonvrienden);
         sendDataToServer(Config.MY_NUMBER);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        setContentView(R.layout.activity_toonvrienden);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -52,7 +57,7 @@ public class ToonJeVrienden extends Activity {
         ListView list=(ListView)findViewById(R.id.listView1);
         try {
             DefaultHttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Config.DATA_URL2);
+            HttpGet request = new HttpGet(Config.CHECK_FRIENDS_URL);
             HttpResponse response = client.execute(request);
             HttpEntity entity=response.getEntity();
             data=EntityUtils.toString(entity);
@@ -67,11 +72,7 @@ public class ToonJeVrienden extends Activity {
 
 
                     Log.e("STRING", name);
-                    //r.add(id);
                     r.add(name);
-                    //r.add(longitude);
-                    //r.add(latitude);
-                    //r.add(tijdstip);
                     list.setAdapter(adapter);
 
                 }
@@ -137,6 +138,7 @@ public class ToonJeVrienden extends Activity {
                 return QuickNUMBER;
             }
         }
+        Toast.makeText(ToonJeVrienden.this, phonenumber, Toast.LENGTH_LONG).show();
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
         sendPostReqAsyncTask.execute(phonenumber);
     }

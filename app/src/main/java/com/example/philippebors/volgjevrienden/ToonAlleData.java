@@ -25,16 +25,6 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
 
 
 
-    //Tags used in the JSON String
-    //public static final String TAG_ID = "ID";
-    public static final String TAG_NAME = "NAME";
-    public static final String TAG_NUMBER = "NUMBER";
-    public static final String TAG_LONGITUDE = "LONGITUDE";
-    public static final String TAG_LATITUDE = "LATITUDE";
-    //public static final String TAG_LATITUDE = "LATITUDE";
-
-    //JSON array name
-    public static final String JSON_ARRAY = "result";
 
     /* Haalt data uit JSON en zet ze in een Android Spinner.*/
 
@@ -92,7 +82,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
                             j = new JSONObject(response);
 
                             //Storing the Array of JSON String to our JSON Array
-                            result = j.getJSONArray(JSON_ARRAY);
+                            result = j.getJSONArray(Config.JSON_ARRAY);
 
                             //Calling method getStudents to get the students from the JSON Array
                             getStudents(result);
@@ -123,7 +113,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                students.add(json.getString(TAG_NAME));
+                students.add(json.getString(Config.TAG_NAME));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -154,7 +144,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
         String number="";
         try {
             JSONObject json = result.getJSONObject(position);
-            number = json.getString(TAG_NUMBER);
+            number = json.getString(Config.TAG_NUMBER);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -166,7 +156,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
         String Longitude="";
         try {
             JSONObject json = result.getJSONObject(position);
-            Longitude = json.getString(TAG_LONGITUDE);
+            Longitude = json.getString(Config.TAG_LONGITUDE);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -178,7 +168,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
         String latitude="";
         try {
             JSONObject json = result.getJSONObject(position);
-            latitude = json.getString(TAG_LATITUDE);
+            latitude = json.getString(Config.TAG_LATITUDE);
         } catch (JSONException e) {
             e.printStackTrace();
         }
