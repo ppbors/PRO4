@@ -6,12 +6,12 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,21 +22,16 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 
@@ -47,19 +42,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
-    public static final String TAG = MapsActivity.class.getSimpleName();
+    private static final String TAG = MapsActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private LocationRequest mLocationRequest;
 
     /* Public values for the database */
     public static double myLastLongitude;
     public static double myLastLatitude;
 
     /* An ArrayList */
-    ArrayList<String> students;
+    private ArrayList<String> students;
 
     /* JSON array */
-    JSONArray result;
+    private JSONArray result;
 
 
 
@@ -86,6 +80,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
     }
 
+
     /**
      * onResume
      * -> Called when the user returns to the activity
@@ -95,6 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onResume();
         mGoogleApiClient.connect();
     }
+
 
     /**
      * onPause
@@ -111,16 +107,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
     /**
      * onMapReady
      * -> Manipulates the map once available.
      *    This callback is triggered when the map is ready to be used.
-     *    This is where we can add markers or lines, add listeners or move the camera. In this case,
-     *    we just add a marker near Sydney, Australia.
-     *    If Google Play services is not installed on the device, the user will be prompted to install
-     *    it inside the SupportMapFragment. This method will only be triggered once the user has
-     *    installed Google Play services and returned to the app.
      *
      *    @param googleMap  - Main class of the Google maps API and the entry point for all methods
      *                        related to the map
@@ -143,6 +133,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onConnected(Bundle bundle) {
+        LocationRequest mLocationRequest;
         Log.i(TAG, "Location services connected.");
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -164,6 +155,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+
     /**
      * pointToPosition
      * -> Point the camera of the map to the location location
@@ -179,6 +171,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
+
     /**
      * handleNewLocation
      * -> Whenever a new location has been found,
@@ -189,7 +182,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param location  - The user's last known location
      */
     private void handleNewLocation(Location location) {
-        /* Laat de vriendenknop zien als je bent ingelogd */
         Log.d(TAG, location.toString());
 
         double currentLatitude = location.getLatitude();
@@ -205,18 +197,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         findData();
 
-
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         pointToPosition(latLng);
 
     }
 
+
     /**
-     * findDatagoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+     * findData
      * -> Fills the array with the content of the database
      */
     private void findData() {
-        students = new ArrayList<String>();
+        students = new ArrayList<>();
         StringRequest stringRequest = new StringRequest(Config.FRIENDS_LOCATIONS_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -297,13 +289,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+
     /**
      * getNumber
      * -> Returns the number of a person in the array at location postition
      * @param position  - The index of the array
      * @return  - The number of the person
      */
-    public String getNumber(int position){
+    private String getNumber(int position){
         String number="";
         try {
             JSONObject json = result.getJSONObject(position);
@@ -314,8 +307,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return number;
     }
 
+
     /* Same idea as getNumber */
-    public String getLongitude(int position){
+    private String getLongitude(int position){
         String Longitude="";
         try {
             JSONObject json = result.getJSONObject(position);
@@ -326,8 +320,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return Longitude;
     }
 
+
     /* Same idea as getNumber */
-    public String getLatitude(int position){
+    private String getLatitude(int position){
         String latitude="";
         try {
             JSONObject json = result.getJSONObject(position);
@@ -337,6 +332,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         return latitude;
     }
+
 
     /**
      * updatePublicLatLong
@@ -372,7 +368,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param connectionResult  - A result of a connection made (or not)
      */
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         if (connectionResult.hasResolution()) {
             try {
                 /* Start an Activity that tries to resolve the error */
@@ -384,6 +380,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.i(TAG, "Location services connection failed with code " + connectionResult.getErrorCode());
         }
     }
+
 
     /**
      * onLocationChanged

@@ -1,6 +1,5 @@
 package com.example.philippebors.volgjevrienden;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -20,18 +17,13 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class FriendActivity extends AppCompatActivity {
 
     private EditText number;
-    private Button addThisFriend;
     private String GetNUMBER;
     private boolean CheckEditText;
 
@@ -40,6 +32,7 @@ public class FriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend);
         number = (EditText)findViewById(R.id.telnumber);
+        Button addThisFriend;
         addThisFriend = (Button)findViewById(R.id.tel_sign_in_button);
 
         addThisFriend.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +46,7 @@ public class FriendActivity extends AppCompatActivity {
                     sendDataToServer(GetNUMBER);
                 }
                 /* Else we show a message */
-                else if (!CheckEditText) {
+                else {
                     Toast.makeText(FriendActivity.this, "Please fill a real phonenumber.", Toast.LENGTH_LONG).show();
                 }
             }
@@ -67,17 +60,11 @@ public class FriendActivity extends AppCompatActivity {
      * GetCheckEditTextIsEmptyOrNot
      * -> Checks if our textfield is empty and is a mobile number
      */
-    public void GetCheckEditTextIsEmptyOrNot(){
-
+    private void GetCheckEditTextIsEmptyOrNot(){
         GetNUMBER = number.getText().toString();
 
        /* All fields should be filled in and the number should be 10 digits and contain 06 */
-        if (TextUtils.isEmpty(GetNUMBER) || !GetNUMBER.contains("06") || GetNUMBER.length() != 10) {
-            CheckEditText = false;
-        }
-        else {
-            CheckEditText = true;
-        }
+        CheckEditText = !(TextUtils.isEmpty(GetNUMBER) || !GetNUMBER.contains("06") || GetNUMBER.length() != 10);
     }
 
     /**
@@ -97,7 +84,7 @@ public class FriendActivity extends AppCompatActivity {
                 String QuickNUMBER = number;
 
 
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                List<NameValuePair> nameValuePairs = new ArrayList<>();
 
 
                 /* Me make items in the list of pairs */

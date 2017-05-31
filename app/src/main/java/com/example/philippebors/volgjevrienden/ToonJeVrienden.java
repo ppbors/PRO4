@@ -1,13 +1,8 @@
 package com.example.philippebors.volgjevrienden;
 
-/**
- * Created by luukie on 5/29/17.
- */
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -22,7 +17,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,11 +24,10 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class ToonJeVrienden extends Activity {
-    TextView text;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +43,12 @@ public class ToonJeVrienden extends Activity {
 
         connect();
     }
+
+
     private void connect() {
         String data;
-        List<String> r = new ArrayList<String>();
-        ArrayAdapter<String>adapter=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,r);
+        List<String> r = new ArrayList<>();
+        ArrayAdapter<String>adapter=new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1,r);
         ListView list=(ListView)findViewById(R.id.listView1);
         try {
             DefaultHttpClient client = new DefaultHttpClient();
@@ -64,40 +59,23 @@ public class ToonJeVrienden extends Activity {
             Log.e("STRING", data);
             try {
 
-                JSONArray json=new JSONArray(data);
-                for(int i=0;i<json.length(); i++)
-                {
-                    JSONObject obj=json.getJSONObject(i);
-                    String name=obj.getString("NAME");
-
+                JSONArray json = new JSONArray(data);
+                for (int i = 0; i < json.length(); i++) {
+                    JSONObject obj = json.getJSONObject(i);
+                    String name = obj.getString("NAME");
 
                     Log.e("STRING", name);
                     r.add(name);
                     list.setAdapter(adapter);
-
                 }
 
             } catch (JSONException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
-        } catch (ClientProtocolException e) {
-            Log.d("HTTPCLIENT", e.getLocalizedMessage());
         } catch (IOException e) {
             Log.d("HTTPCLIENT", e.getLocalizedMessage());
         }
-
-
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -108,14 +86,10 @@ public class ToonJeVrienden extends Activity {
             protected String doInBackground(String... params) {
 
                 String QuickNUMBER = phonenumber;
-
-
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-
+                List<NameValuePair> nameValuePairs = new ArrayList<>();
 
                 /* Me make items in the list of pairs */
                 nameValuePairs.add(new BasicNameValuePair("phonenumber", QuickNUMBER));
-
 
                 /* We set up a new request */
                 try {
@@ -142,28 +116,4 @@ public class ToonJeVrienden extends Activity {
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
         sendPostReqAsyncTask.execute(phonenumber);
     }
-
-/*    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
-    {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle("Select The Action");
-        menu.add(0, v.getId(), 0, "Call");//groupId, itemId, order, title
-        menu.add(0, v.getId(), 0, "SMS");
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item){
-        if(item.getTitle()=="Call"){
-            Toast.makeText(getApplicationContext(),"calling code",Toast.LENGTH_LONG).show();
-        }
-        else if(item.getTitle()=="SMS"){
-            Toast.makeText(getApplicationContext(),"sending sms code",Toast.LENGTH_LONG).show();
-        }else{
-            return false;
-        }
-        return true;
-    }*/
-
-
 }

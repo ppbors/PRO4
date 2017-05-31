@@ -32,7 +32,6 @@ public class AccountRegistreren extends Activity {
 
     private EditText name, number;
     private String GetNAME, GetNUMBER;
-    private Button register ;
     private Boolean CheckEditText;
 
     /* Main function, called upon creation */
@@ -40,7 +39,7 @@ public class AccountRegistreren extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        Button register;
         /* The textfields */
         name = (EditText)findViewById(R.id.editText2);
         number = (EditText)findViewById(R.id.editText3);
@@ -61,7 +60,7 @@ public class AccountRegistreren extends Activity {
                     SendDataToServer(GetNAME, GetNUMBER);
                 }
                 /* Else we show a message */
-                else if (!CheckEditText) {
+                else {
                     Toast.makeText(AccountRegistreren.this, "Please fill all form fiels properly.", Toast.LENGTH_LONG).show();
                 }
             }
@@ -74,16 +73,13 @@ public class AccountRegistreren extends Activity {
      *    all fields are filled in.
      *
      */
-   public void GetCheckEditTextIsEmptyOrNot(){
+   private void GetCheckEditTextIsEmptyOrNot(){
 
         GetNAME = name.getText().toString();
         GetNUMBER = number.getText().toString();
 
        /* All fields should be filled in and be correct*/
-        if (GetNUMBER.contains("06") && GetNUMBER.length() == 10 && !TextUtils.isEmpty(GetNAME) && !TextUtils.isEmpty(GetNUMBER)) {
-            CheckEditText = true;
-        }
-        else CheckEditText = false;
+       CheckEditText = GetNUMBER.contains("06") && GetNUMBER.length() == 10 && !TextUtils.isEmpty(GetNAME) && !TextUtils.isEmpty(GetNUMBER);
     }
 
     /**
@@ -92,7 +88,7 @@ public class AccountRegistreren extends Activity {
      * @param name - The name the user entered
      * @param number - The mobile number the user entered
      */
-    public void SendDataToServer(final String name, final String number){
+    private void SendDataToServer(final String name, final String number){
 
         final String currentLongitude = String.valueOf(MapsActivity.myLastLongitude);
         final String currentLatitude = String.valueOf(MapsActivity.myLastLatitude);
@@ -107,7 +103,7 @@ public class AccountRegistreren extends Activity {
                 String QuickLONGITUDE = currentLongitude;
                 String QuickLATITUDE = currentLatitude;
 
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                List<NameValuePair> nameValuePairs = new ArrayList<>();
 
 
                 /* Me make items in the list of pairs */

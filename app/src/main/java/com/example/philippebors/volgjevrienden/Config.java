@@ -2,7 +2,7 @@ package com.example.philippebors.volgjevrienden;
 
 
 /* This class contains some urls and tags to be used in requests and JSON strings */
-public class Config {
+class Config {
     /* The URLS used */
     public static final String DATA_URL = "http://nolden.biz/Android/getAll.php";
     public static final String DATA_URL2 = "http://nolden.biz/Android/getFriends.php";
