@@ -116,7 +116,7 @@ public class FriendActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
-                Toast.makeText(FriendActivity.this, "Registration successful", Toast.LENGTH_LONG).show();
+                Toast.makeText(FriendActivity.this, "Friend added", Toast.LENGTH_LONG).show();
                 finish();
             }
         }
