@@ -22,8 +22,7 @@ import java.util.ArrayList;
 
 public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSelectedListener{
 
-    //JSON URL
-    public static final String DATA_URL = "http://nolden.biz/Android/json.php";
+
 
     //Tags used in the JSON String
     //public static final String TAG_ID = "ID";
@@ -82,7 +81,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
 
     private void getData(){
         //Creating a string request
-        StringRequest stringRequest = new StringRequest(DATA_URL,
+        StringRequest stringRequest = new StringRequest(Config.DATA_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

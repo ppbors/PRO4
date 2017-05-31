@@ -44,7 +44,7 @@ public class ToonJeVrienden extends Activity {
         ListView list=(ListView)findViewById(R.id.listView1);
         try {
             DefaultHttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://nolden.biz/Android/json2.php");
+            HttpGet request = new HttpGet(Config.DATA_URL2);
             HttpResponse response = client.execute(request);
             HttpEntity entity=response.getEntity();
             data=EntityUtils.toString(entity);

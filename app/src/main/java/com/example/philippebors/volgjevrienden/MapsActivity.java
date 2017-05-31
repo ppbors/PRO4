@@ -27,6 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -49,8 +50,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static final String TAG = MapsActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private LocationRequest mLocationRequest;
-    public static final String EXTRA_MESSAGE = "com.example.volgjevrienden.MESSAGE";
-    public static boolean loggedIn = false;
 
     /* Public values for the database */
     public static double myLastLongitude;
@@ -62,7 +61,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /* JSON array */
     JSONArray result;
 
-    private LatLngBounds.Builder builder;
 
 
 
@@ -167,6 +165,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
+     * pointToPosition
+     * -> Point the camera of the map to the location location
+     *
+     * @param position  - The location on which to focus on
+     */
+    private void pointToPosition(LatLng position) {
+        /* Build the camera position */
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(position)
+                .zoom(5).build();
+        /* Zoom in and animate the camera */
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+    /**
      * handleNewLocation
      * -> Whenever a new location has been found,
      *    this method is called. It retrieves the
@@ -177,11 +190,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void handleNewLocation(Location location) {
         /* Laat de vriendenknop zien als je bent ingelogd */
-        if (loggedIn) {
-            View view = findViewById(R.id.button2);
-            view.setVisibility(View.VISIBLE);
-           // view2.setVisibility(View.GONE);
-        }
         Log.d(TAG, location.toString());
 
         double currentLatitude = location.getLatitude();
@@ -199,10 +207,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        pointToPosition(latLng);
+
     }
 
     /**
-     * findData
+     * findDatagoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
      * -> Fills the array with the content of the database
      */
     private void findData() {
@@ -261,6 +271,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .position(latLng)
                     .title(number);
             mMap.addMarker(options);
+
         }
     }
 
@@ -389,11 +400,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
        when the buttons are clicked */
     public void ToonAlleData(View view){
         Intent intent = new Intent(this, ToonAlleData.class);
-        startActivity(intent);
-    }
-
-    public void friendsButton(View view) {
-        Intent intent = new Intent(this, ScrollingActivity.class);
         startActivity(intent);
     }
 
