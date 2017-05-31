@@ -10,21 +10,28 @@ import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ToonJeVrienden extends Activity {
     TextView text;
@@ -32,6 +39,7 @@ public class ToonJeVrienden extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toonvrienden);
+        sendDataToServer(Config.MY_NUMBER);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -55,11 +63,8 @@ public class ToonJeVrienden extends Activity {
                 for(int i=0;i<json.length(); i++)
                 {
                     JSONObject obj=json.getJSONObject(i);
-                    String id=obj.getString("ID");
                     String name=obj.getString("NAME");
-                    String longitude=obj.getString("LONGITUDE");
-                    String latitude=obj.getString("LATITUDE");
-                    String tijdstip=obj.getString("TIJDSTIP");
+
 
                     Log.e("STRING", name);
                     //r.add(id);
@@ -83,6 +88,57 @@ public class ToonJeVrienden extends Activity {
         }
 
 
+    }
+
+
+
+
+
+
+
+
+
+
+
+    private void sendDataToServer(final String phonenumber) {
+
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                String QuickNUMBER = phonenumber;
+
+
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+
+                /* Me make items in the list of pairs */
+                nameValuePairs.add(new BasicNameValuePair("phonenumber", QuickNUMBER));
+
+
+                /* We set up a new request */
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+
+                    HttpPost httpPost = new HttpPost(Config.DATA_URL2);
+
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+
+                    HttpEntity entity = response.getEntity();
+
+
+                } catch (ClientProtocolException e) {
+                    Toast.makeText(ToonJeVrienden.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    Toast.makeText(ToonJeVrienden.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                }
+                return QuickNUMBER;
+            }
+        }
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+        sendPostReqAsyncTask.execute(phonenumber);
     }
 
 /*    @Override

@@ -63,6 +63,7 @@ public class AccountLogin extends AppCompatActivity {
                 if (CheckEditText) {
                     /*Check of nummer in database is, zo ja verbind, zo nee dan niet*/
                     sendDataToServer(GetNUMBER);
+                    /* Allow the textfile to update itself */
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {

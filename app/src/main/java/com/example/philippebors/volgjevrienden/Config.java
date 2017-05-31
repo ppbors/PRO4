@@ -4,11 +4,12 @@ package com.example.philippebors.volgjevrienden;
 /* This class contains some urls and tags to be used in requests and JSON strings */
 public class Config {
     /* The URLS used */
-    public static final String DATA_URL = "http://nolden.biz/Android/json.php";
-    public static final String DATA_URL2 = "http://nolden.biz/Android/json2.php";
+    public static final String DATA_URL = "http://nolden.biz/Android/getAll.php";
+    public static final String DATA_URL2 = "http://nolden.biz/Android/getFriends.php";
     public static final String DATA_PARSE_URL = "http://nolden.biz/Android/loginAccount.php";
     public static final String LOGIN_STATUS_URL = "http://nolden.biz/Android/loginStatus.txt";
     public static final String REGISTER_URL = "http://nolden.biz/Android/registerAccount.php";
+    public static final String FRIEND_URL = "http://nolden.biz/Android/addFriendship.php";
 
     public static String MY_NUMBER = "";
 
