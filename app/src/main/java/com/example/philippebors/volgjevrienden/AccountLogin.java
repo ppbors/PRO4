@@ -81,10 +81,7 @@ public class AccountLogin extends AppCompatActivity {
     private boolean readTextFile() {
         try {
 
-
-
-
-            InputStream input = new URL("http://nolden.biz/Android/status.txt").openStream();
+            InputStream input = new URL("http://nolden.biz/Android/loginStatus.txt").openStream();
             String myString = IOUtils.toString(input, "UTF-8");
 
 

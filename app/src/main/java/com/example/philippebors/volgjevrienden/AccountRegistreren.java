@@ -2,8 +2,13 @@ package com.example.philippebors.volgjevrienden;
 
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -159,8 +164,22 @@ public class AccountRegistreren extends Activity {
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
-                Toast.makeText(AccountRegistreren.this, "Data sent", Toast.LENGTH_LONG).show();
-                //MapsActivity.loggedIn = false;
+
+                try {
+
+                    InputStream input = new URL("http://nolden.biz/Android/regStatus.txt").openStream();
+                    String myString = IOUtils.toString(input, "UTF-8");
+
+                    if (Objects.equals(myString, "1")) {
+                        Toast.makeText(AccountRegistreren.this, "Registration successful", Toast.LENGTH_LONG).show();
+                    }
+                    else Toast.makeText(AccountRegistreren.this, "Number already exists", Toast.LENGTH_LONG).show();
+                }
+                catch(IOException ex) {
+                    ex.printStackTrace();
+                }
+
+
                 finish();
             }
         }

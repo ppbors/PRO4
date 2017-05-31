@@ -27,7 +27,7 @@ tools:context=".MapsActivity">
         android:layout_height="wrap_content"
         android:background="#0000ff"
         android:src="@drawable/ic_menu"
-        android:onClick="Login"
+        android:onClick="goToFriends"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageButton"
         android:layout_toEndOf="@+id/imageButton" />
@@ -42,18 +42,6 @@ tools:context=".MapsActivity">
         android:background="#00ff00"
         android:onClick="ToonJeVrienden"
         android:src="@drawable/ic_menu" />
-
-    <ImageButton
-        android:id="@+id/button_menu3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_light"
-        android:onClick="writeDatabase"
-        android:src="@drawable/ic_menu"
-        android:text="hello"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/button2"
