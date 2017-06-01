@@ -33,7 +33,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -48,11 +47,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -60,7 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-    private GoogleMap mMap;
+    public GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG = MapsActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -70,7 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static double myLastLatitude;
 
     /* An ArrayList */
-    private ArrayList<String> students;
+    private ArrayList<String> persons;
 
     /* JSON array */
     private JSONArray result;
@@ -175,6 +171,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    private void refreshNewLocation() {
+        LocationRequest mLocationRequest;
+        Log.i(TAG, "Location services connected.");
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(10000); // change later
+        mLocationRequest.setSmallestDisplacement(10);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            }
+            return;
+        }
+        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (location == null) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        }
+    }
+
 
     /**
      * pointToPosition
@@ -201,7 +217,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      *
      * @param location  - The user's last known location
      */
-    private void handleNewLocation(Location location) {
+    private void handleNewLocation(final Location location) {
+
         Log.d(TAG, location.toString());
 
         double currentLatitude = location.getLatitude();
@@ -222,6 +239,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         pointToPosition(latLng);
 
+        Toast.makeText(MapsActivity.this, "Location Updated", Toast.LENGTH_LONG).show();
+
     }
 
 
@@ -230,7 +249,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * -> Fills the array with the content of the database
      */
     private void findData() {
-        students = new ArrayList<>();
+        persons = new ArrayList<>();
         StringRequest stringRequest = new StringRequest(Config.FRIENDS_LOCATIONS_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -243,7 +262,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             //Storing the Array of JSON String to our JSON Array
                             result = j.getJSONArray(Config.JSON_ARRAY);
 
-                            //Calling method getPersons to get the students from the JSON Array
+                            //Calling method getPersons to get the persons from the JSON Array
                             getPersons(result);
                             setFriendsOnMap(result);
                         } catch (JSONException e) {
@@ -348,7 +367,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                students.add(json.getString(Config.TAG_NAME));
+                persons.add(json.getString(Config.TAG_NAME));
                 Log.e("STRING", json.getString(Config.TAG_NAME));
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -466,8 +485,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /* All methods below this point are connected with buttons and will be called
        when the buttons are clicked */
     public void ToonAlleData(View view){
-        Intent intent = new Intent(this, ToonAlleData.class);
-        startActivity(intent);
+        refreshNewLocation();
+        doRefresh();
+        doRefresh();
     }
 
     public void ToonJeVrienden(View view) {
@@ -480,6 +500,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
+
+    public void doRefresh() {
+        LocationRequest mLocationRequest;
+        Log.i(TAG, "Location services connected.");
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(10000); // change later
+        mLocationRequest.setSmallestDisplacement(10);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            }
+            return;
+        }
+        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (location == null) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        }
+        else {
+            handleNewLocation(location);
+        }
+    }
 
 
     /**

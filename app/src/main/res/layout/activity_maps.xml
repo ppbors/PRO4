@@ -64,14 +64,14 @@ tools:context=".MapsActivity">
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="All Users"
         android:layout_alignBaseline="@+id/button4"
         android:layout_alignBottom="@+id/button4"
-        android:layout_toRightOf="@+id/button2"
-        android:layout_toEndOf="@+id/button2"
-        android:onClick="ToonAlleData"
         android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp" />
+        android:layout_marginStart="17dp"
+        android:layout_toEndOf="@+id/button2"
+        android:layout_toRightOf="@+id/button2"
+        android:onClick="ToonAlleData"
+        android:text="Refresh" />
 
     <Button
         android:id="@+id/button6"
