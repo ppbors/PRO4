@@ -4,7 +4,6 @@ package com.example.philippebors.volgjevrienden;
 /* This class contains some urls and tags to be used in requests and JSON strings */
 class Config {
     /* The URLS used */
-    public static final String GETALL_URL = "http://nolden.biz/Android/getAll.php";
     public static final String GETFRIENDS_URL = "http://nolden.biz/Android/getFriends.php";
     public static final String LOGINACCOUNT_URL = "http://nolden.biz/Android/loginAccount.php";
     public static final String LOGIN_STATUS_URL = "http://nolden.biz/Android/loginStatus.txt";
@@ -20,7 +19,6 @@ class Config {
 
     /* Tags used in JSON strings */
     public static final String TAG_NAME = "NAME";
-    public static final String TAG_NUMBER = "NUMBER";
     public static final String TAG_LONGITUDE = "LONGITUDE";
     public static final String TAG_LATITUDE = "LATITUDE";
 

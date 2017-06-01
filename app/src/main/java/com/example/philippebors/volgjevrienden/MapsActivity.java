@@ -323,7 +323,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return QuickNUMBER;
             }
         }
-        Toast.makeText(MapsActivity.this, phonenumber, Toast.LENGTH_LONG).show();
 
         /* Here we send the phonenumber */
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
