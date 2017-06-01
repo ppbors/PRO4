@@ -68,7 +68,7 @@ public class ToonAlleData extends AppCompatActivity implements Spinner.OnItemSel
      */
     private void getData() {
         /* Creating a string request */
-        StringRequest stringRequest = new StringRequest(Config.DATA_URL,
+        StringRequest stringRequest = new StringRequest(Config.GETALL_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
