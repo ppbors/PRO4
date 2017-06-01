@@ -53,7 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-    public GoogleMap mMap;
+    private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG = MapsActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -345,7 +345,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * doRefresh
      * -> Refreshes your own location
      */
-    public void doRefresh() {
+    private void doRefresh() {
         LocationRequest mLocationRequest;
         Log.i(TAG, "Location services connected.");
         mLocationRequest = new LocationRequest();

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="REGISTER HERE"
+        android:text="@string/register_here"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fbfefd"/>
@@ -26,11 +26,10 @@
         android:layout_height="50dp"
         android:layout_marginTop="21dp"
         android:ems="10"
-        android:hint="ENTER YOUR NAME"
+        android:hint="@string/enter_your_name"
         android:background="#fbfefd"
         android:gravity="center"
         android:layout_below="@+id/textView1"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
         <requestFocus />
     </EditText>
@@ -41,11 +40,10 @@
         android:layout_height="50dp"
         android:layout_marginTop="23dp"
         android:ems="10"
-        android:hint="ENTER YOUR NUMBER"
+        android:hint="@string/enter_your_number"
         android:background="#fbfefd"
         android:gravity="center"
         android:layout_below="@+id/editText2"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
@@ -53,10 +51,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
-        android:text="REGISTER"
+        android:text="@string/register"
         android:background="#d8dbdb"
         android:layout_below="@+id/editText3"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>

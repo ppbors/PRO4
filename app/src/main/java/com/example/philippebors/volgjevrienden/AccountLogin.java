@@ -165,7 +165,7 @@ public class AccountLogin extends AppCompatActivity {
 
     /**
      * getCheckEditTextIsEmptyOrNot
-     * -> Checks if our text field is empty and is a mobile number
+     * -> Checks if our text field is empty and is a mobile phone number
      */
     private void getCheckEditTextIsEmptyOrNot() {
         /* We get the users input */
