@@ -133,7 +133,7 @@ public class AccountLogin extends AppCompatActivity {
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
 
-                    HttpPost httpPost = new HttpPost(Config.DATA_PARSE_URL);
+                    HttpPost httpPost = new HttpPost(Config.LOGINACCOUNT_URL);
 
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 

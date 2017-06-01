@@ -107,7 +107,7 @@ public class ToonJeVrienden extends AppCompatActivity {
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
 
-                    HttpPost httpPost = new HttpPost(Config.DATA_URL2);
+                    HttpPost httpPost = new HttpPost(Config.GETFRIENDS_URL);
 
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
