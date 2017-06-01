@@ -29,9 +29,7 @@
         android:gravity="center"
         android:text="@string/title_activity_login"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#fbfefd"
-
-        />
+        android:textColor="#fbfefd" />
 
     <EditText
         android:id="@+id/editText3"
@@ -56,6 +54,5 @@
         android:background="#d8dbdb"
         android:text="Register HERE"
         android:onClick="registerCalled"/>
-
 
 </RelativeLayout>

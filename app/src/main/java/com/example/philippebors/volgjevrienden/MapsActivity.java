@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -32,7 +31,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -45,7 +43,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +70,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
     /**
      * onCreate
      * -> Builds the map and adds the api. This method is called
@@ -85,7 +81,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        /* Obtain the SupportMapFragment and get notified when the map is ready to be used. */
+
+        /* Obtain the SupportMapFragment and get notified when the map is ready to be used */
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -96,7 +93,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
     }
 
-
     /**
      * onResume
      * -> Called when the user returns to the activity
@@ -106,7 +102,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onResume();
         mGoogleApiClient.connect();
     }
-
 
     /**
      * onPause
@@ -121,7 +116,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mGoogleApiClient.disconnect();
         }
     }
-
 
     /**
      * onMapReady
@@ -153,50 +147,59 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.i(TAG, "Location services connected.");
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(10000); // change later
+        mLocationRequest.setInterval(10000);
         mLocationRequest.setSmallestDisplacement(10);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
             }
             return;
         }
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (location == null) {
-           LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+           LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                   mLocationRequest, this);
         }
         else {
             handleNewLocation(location);
         }
     }
 
+    /**
+     * refreshNewLocation
+     * -> We get our new location
+     */
     private void refreshNewLocation() {
         LocationRequest mLocationRequest;
         Log.i(TAG, "Location services connected.");
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(10000); // change later
+        mLocationRequest.setInterval(10000);
         mLocationRequest.setSmallestDisplacement(10);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
             }
             return;
         }
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (location == null) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                    mLocationRequest, this);
         }
     }
 
-
     /**
      * pointToPosition
-     * -> Point the camera of the map to the location location
+     * -> Point the camera to the location location
      *
-     * @param position  - The location on which to focus on
+     * @param position  - The location
      */
     private void pointToPosition(LatLng position) {
         /* Build the camera position */
@@ -206,7 +209,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         /* Zoom in and animate the camera */
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
-
 
     /**
      * handleNewLocation
@@ -218,35 +220,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param location  - The user's last known location
      */
     private void handleNewLocation(final Location location) {
-
+        /* Also written in the log */
         Log.d(TAG, location.toString());
 
+        /* We get our longitude and latitude from the location object */
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
-        updatePublicLatLong(currentLatitude, currentLongitude);
-        sendDataToServer2(Config.MY_NUMBER);
-        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
 
+        /* We update our member variables */
+        updatePublicLatLong(currentLatitude, currentLongitude);
+
+        /* We send our number to the server */
+        sendDataToServer2(Config.MY_NUMBER);
+
+        /* We place our marker */
+        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
         MarkerOptions options = new MarkerOptions()
                 .position(latLng)
                 .title("I am here!");
         mMap.clear(); /* This clears all markers */
         mMap.addMarker(options);
 
+        /* We send our number to another php file */
         sendDataToServer(Config.MY_NUMBER);
+
+        /* Then we get all our friends and put them on the map */
         findData();
 
+        /* And we move to our own position */
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         pointToPosition(latLng);
 
         Toast.makeText(MapsActivity.this, "Location Updated", Toast.LENGTH_LONG).show();
-
     }
 
 
     /**
      * findData
-     * -> Fills the array with the content of the database
+     * -> Fills the array with the content of the query (our friends)
      */
     private void findData() {
         persons = new ArrayList<>();
@@ -256,15 +267,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onResponse(String response) {
                         JSONObject j = null;
                         try {
-                            //Parsing the fetched Json String to JSON Object
+                            /* Parsing the fetched Json String to JSON Object */
                             j = new JSONObject(response);
 
-                            //Storing the Array of JSON String to our JSON Array
+                            /* Storing the Array of JSON String to our JSON Array */
                             result = j.getJSONArray(Config.JSON_ARRAY);
 
-                            //Calling method getPersons to get the persons from the JSON Array
+                            /* Calling method getPersons to get the persons from the JSON Array */
                             getPersons(result);
+
+                            /* We put our friends on the map as well */
                             setFriendsOnMap(result);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -273,7 +287,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        error.printStackTrace();
                     }
                 });
 
@@ -286,9 +300,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * sendDataToServer
-     * -> Sends your phonenumber to the server so that your friends
+     * -> Sends your phone-number to the server so that your friends
      *    can be retrieved
-     * @param phonenumber  - The users phonenumber
+     * @param phonenumber  - The users phone-number
      */
     private void sendDataToServer(final String phonenumber) {
 
@@ -296,11 +310,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             protected String doInBackground(String... params) {
 
-                String QuickNUMBER = phonenumber;
                 List<NameValuePair> nameValuePairs = new ArrayList<>();
 
                 /* Me make items in the list of pairs */
-                nameValuePairs.add(new BasicNameValuePair("phonenumber", QuickNUMBER));
+                nameValuePairs.add(new BasicNameValuePair("phonenumber", phonenumber));
 
                 /* We set up a new request */
                 try {
@@ -314,19 +327,94 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     HttpEntity entity = response.getEntity();
 
+                } catch (ClientProtocolException e) {
+                    Toast.makeText(MapsActivity.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    Toast.makeText(MapsActivity.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                }
+                return phonenumber;
+            }
+        }
+
+        /* Here we send the phone-number */
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+        sendPostReqAsyncTask.execute(phonenumber);
+    }
+
+    /**
+     * doRefresh
+     * -> Refreshes your own location
+     */
+    public void doRefresh() {
+        LocationRequest mLocationRequest;
+        Log.i(TAG, "Location services connected.");
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(10000); // change later
+        mLocationRequest.setSmallestDisplacement(10);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            }
+            return;
+        }
+        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (location == null) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                    mLocationRequest, this);
+        }
+        else {
+            handleNewLocation(location);
+        }
+    }
+
+    /**
+     * sendDataToServer2
+     * -> Sends the data in the parameters to the database via a POST request.
+     * @param phonenumber - The mobile number the user entered
+     */
+    private void sendDataToServer2(final String phonenumber){
+
+        final String longitude = String.valueOf(myLastLongitude);
+        final String latitude = String.valueOf(myLastLatitude);
+
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                List<NameValuePair> nameValuePairs = new ArrayList<>();
+
+                /* Me make items in the list of pairs */
+                nameValuePairs.add(new BasicNameValuePair("phonenumber", phonenumber));
+                nameValuePairs.add(new BasicNameValuePair("longitude", longitude));
+                nameValuePairs.add(new BasicNameValuePair("latitude", latitude));
+
+                /* We set up a new request */
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+
+                    HttpPost httpPost = new HttpPost(Config.UPDATE_LOCATIONS_URL);
+
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+
+                    HttpEntity entity = response.getEntity();
 
                 } catch (ClientProtocolException e) {
                     Toast.makeText(MapsActivity.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     Toast.makeText(MapsActivity.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
                 }
-                return QuickNUMBER;
+                return phonenumber;
             }
         }
-
-        /* Here we send the phonenumber */
+        /* Here we actually send the data */
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-        sendPostReqAsyncTask.execute(phonenumber);
+        sendPostReqAsyncTask.execute(phonenumber, latitude, longitude);
     }
 
     /**
@@ -348,42 +436,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .position(latLng)
                     .title(number);
             mMap.addMarker(options);
-
         }
     }
 
-
     /**
      * getPersons
-     * -> Fills the array with the content of the database
-     * @param j  -
+     * -> Gets the persons in the array
+     * @param j  - ^
      */
-    private void getPersons(JSONArray j){
-        //Traversing through all the items in the json array
-        for(int i=0;i<j.length();i++){
+    private void getPersons(JSONArray j) {
+        /* Traversing through all the items in the json array */
+        for (int i = 0; i < j.length(); i++){
             try {
-                //Getting json object
+                /* Getting json object */
                 JSONObject json = j.getJSONObject(i);
 
-                //Adding the name of the student to array list
+                /* Adding the name of the person to array list */
                 persons.add(json.getString(Config.TAG_NAME));
                 Log.e("STRING", json.getString(Config.TAG_NAME));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-
     }
-
 
     /**
      * getNumber
-     * -> Returns the number of a person in the array at location postition
+     * -> Returns the number of a person in the array at location position
      * @param position  - The index of the array
      * @return  - The number of the person
      */
-    private String getNumber(int position){
-        String number="";
+    private String getNumber(int position) {
+        String number = "";
         try {
             JSONObject json = result.getJSONObject(position);
             number = json.getString(Config.TAG_NAME);
@@ -393,10 +477,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return number;
     }
 
-
-    /* Same idea as getNumber */
-    private String getLongitude(int position){
-        String Longitude="";
+    /**
+     * getLongitude
+     * -> Same idea as getNumber
+     * @param position - ^
+     * @return - ^
+     */
+    private String getLongitude(int position) {
+        String Longitude = "";
         try {
             JSONObject json = result.getJSONObject(position);
             Longitude = json.getString(Config.TAG_LONGITUDE);
@@ -406,10 +494,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return Longitude;
     }
 
-
-    /* Same idea as getNumber */
-    private String getLatitude(int position){
-        String latitude="";
+    /**
+     * getLatitude
+     * -> Same idea as getNumber
+     * @param position - ^
+     * @return - ^
+     */
+    private String getLatitude(int position) {
+        String latitude = "";
         try {
             JSONObject json = result.getJSONObject(position);
             latitude = json.getString(Config.TAG_LATITUDE);
@@ -419,10 +511,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return latitude;
     }
 
-
     /**
      * updatePublicLatLong
-     * -> Updates the public members with a new location so the database
+     * -> Updates the public members with a new location so the server
      *    can use it.
      * @param currentLatitude  -  Last known latitude
      * @param currentLongitude -  Last known longitude
@@ -431,7 +522,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         myLastLatitude = currentLatitude;
         myLastLongitude = currentLongitude;
     }
-
 
     /**
      * onConnectionSuspended
@@ -445,7 +535,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.i(TAG, "Location services suspended. Please reconnect.");
     }
 
-
     /**
      * onConnectionFailed
      * -> Tries to handle a failed connection. If unsuccessful, it logs
@@ -458,15 +547,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (connectionResult.hasResolution()) {
             try {
                 /* Start an Activity that tries to resolve the error */
-                connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                connectionResult.startResolutionForResult(this,
+                        CONNECTION_FAILURE_RESOLUTION_REQUEST);
             } catch (IntentSender.SendIntentException e) {
                 e.printStackTrace();
             }
         } else {
-            Log.i(TAG, "Location services connection failed with code " + connectionResult.getErrorCode());
+            Log.i(TAG, "Location services connection failed with code "
+                    + connectionResult.getErrorCode());
         }
     }
-
 
     /**
      * onLocationChanged
@@ -479,102 +569,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
-
-    /* All methods below this point are connected with buttons and will be called
-       when the buttons are clicked */
-    public void ToonAlleData(View view){
+    /**
+     * refreshButtonClicked
+     * friendsButtonClicked
+     * addFriendButtonClicked
+     *
+     * -> These methods are called if any of these buttons are clicked.
+     *    They start new activities
+     */
+    public void refreshButtonClicked(View view){
         refreshNewLocation();
         doRefresh();
         doRefresh();
     }
 
-    public void ToonJeVrienden(View view) {
+    public void friendsButtonClicked(View view) {
         Intent intent = new Intent(this, ToonJeVrienden.class);
         startActivity(intent);
     }
 
-    public void goToFriends(View view) {
+    public void addFriendButtonClicked(View view) {
         Intent intent = new Intent(this, FriendActivity.class);
         startActivity(intent);
-    }
-
-
-    public void doRefresh() {
-        LocationRequest mLocationRequest;
-        Log.i(TAG, "Location services connected.");
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(10000); // change later
-        mLocationRequest.setSmallestDisplacement(10);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-            }
-            return;
-        }
-        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (location == null) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-        }
-        else {
-            handleNewLocation(location);
-        }
-    }
-
-
-    /**
-     * SendDataToServer
-     * -> Sends the data in the parameters to the database via a POST request.
-     * @param phonenumber - The mobile number the user entered
-     */
-    private void sendDataToServer2(final String phonenumber){
-
-        final String longitude = String.valueOf(myLastLongitude);
-        final String latitude = String.valueOf(myLastLatitude);
-
-        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
-            @Override
-            protected String doInBackground(String... params) {
-
-                /* Some local variables to use */
-                String QuickNUMBER = phonenumber ;
-                String QuickLONGITUDE = longitude;
-                String QuickLATITUDE = latitude;
-
-                List<NameValuePair> nameValuePairs = new ArrayList<>();
-
-
-                /* Me make items in the list of pairs */
-                nameValuePairs.add(new BasicNameValuePair("phonenumber", QuickNUMBER));
-                nameValuePairs.add(new BasicNameValuePair("longitude", QuickLONGITUDE));
-                nameValuePairs.add(new BasicNameValuePair("latitude", QuickLATITUDE));
-
-
-                /* We set up a new request */
-                try {
-                    HttpClient httpClient = new DefaultHttpClient();
-
-                    HttpPost httpPost = new HttpPost(Config.UPDATE_LOCATIONS_URL);
-
-                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-                    HttpResponse response = httpClient.execute(httpPost);
-
-                    HttpEntity entity = response.getEntity();
-
-
-                } catch (ClientProtocolException e) {
-                    Toast.makeText(MapsActivity.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
-                } catch (IOException e) {
-                    Toast.makeText(MapsActivity.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
-                }
-                return phonenumber;
-            }
-        }
-        /* Here we actually send the data */
-        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-        sendPostReqAsyncTask.execute(phonenumber, latitude, longitude);
     }
 }

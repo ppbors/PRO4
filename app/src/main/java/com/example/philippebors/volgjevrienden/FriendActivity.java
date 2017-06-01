@@ -22,11 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendActivity extends AppCompatActivity {
-
+    /* The text field */
     private EditText number;
+    /* Content in the text field */
     private String GetNUMBER;
+    /* Is true if the content is correct */
     private boolean CheckEditText;
 
+    /**
+     * onCreate
+     * -> Method is called upon creation of the activity. It initializes our text field and
+     *    button and its listener
+     *
+     * @param savedInstanceState -  The last saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,56 +50,55 @@ public class FriendActivity extends AppCompatActivity {
             public void onClick(View v) {
                 GetCheckEditTextIsEmptyOrNot();
 
-                /* If so, we sent this data to the database */
+                /* If correct, we send this data to the database */
                 if (CheckEditText) {
                     sendDataToServer(GetNUMBER);
                 }
                 /* Else we show a message */
                 else {
-                    Toast.makeText(FriendActivity.this, "Please fill a real phonenumber.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(FriendActivity.this, "Please enter a real phone-number.",
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
-
     }
-
-
 
     /**
      * GetCheckEditTextIsEmptyOrNot
-     * -> Checks if our textfield is empty and is a mobile number
+     * -> Checks if our text field is not empty and a mobile number
      */
     private void GetCheckEditTextIsEmptyOrNot(){
+        /* We get the content of the text field */
         GetNUMBER = number.getText().toString();
 
        /* All fields should be filled in and the number should be 10 digits and contain 06 */
-        CheckEditText = !(TextUtils.isEmpty(GetNUMBER) || !GetNUMBER.contains("06") || GetNUMBER.length() != 10);
+        CheckEditText = !(TextUtils.isEmpty(GetNUMBER) || !GetNUMBER.contains("06")
+                || GetNUMBER.length() != 10);
     }
 
     /**
      * sendDataToServer
      * -> The number the user gave us will be send in order to check if
-     *    this number already exists or not. If it does exist, the user
-     *    can login. Else he cannot.
+     *    this number already exists or not. If it exists, the user
+     *    can log in. Else he cannot.
      *
      * @param number  - The number the user gave as input
      */
     private void sendDataToServer(final String number) {
 
+        final String phonenumber1 = Config.MY_NUMBER;
+        final String phonenumber2 = number;
+
         class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+
             @Override
             protected String doInBackground(String... params) {
 
-                String QuickNUMBER = number;
-
-
                 List<NameValuePair> nameValuePairs = new ArrayList<>();
 
-
                 /* Me make items in the list of pairs */
-                nameValuePairs.add(new BasicNameValuePair("phonenumber1", Config.MY_NUMBER));
-                nameValuePairs.add(new BasicNameValuePair("phonenumber2", QuickNUMBER));
-
+                nameValuePairs.add(new BasicNameValuePair("phonenumber1", phonenumber1));
+                nameValuePairs.add(new BasicNameValuePair("phonenumber2", phonenumber2));
 
                 /* We set up a new request */
                 try {
@@ -104,15 +112,22 @@ public class FriendActivity extends AppCompatActivity {
 
                     HttpEntity entity = response.getEntity();
 
-
                 } catch (ClientProtocolException e) {
-                    Toast.makeText(FriendActivity.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(FriendActivity.this, "Error: 1" + e.toString(),
+                            Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
-                    Toast.makeText(FriendActivity.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(FriendActivity.this, "Error: 2" + e.toString(),
+                            Toast.LENGTH_LONG).show();
                 }
-                return QuickNUMBER;
+                return number;
             }
 
+            /**
+             * onPostExecute
+             * -> We show a message to indicate that the number has been added
+             *    as a friend.
+             * @param result -
+             */
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
@@ -120,11 +135,7 @@ public class FriendActivity extends AppCompatActivity {
                 finish();
             }
         }
-        String phonenumber1 = Config.MY_NUMBER;
-        String phonenumber2 = number;
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
         sendPostReqAsyncTask.execute(phonenumber1, phonenumber2);
     }
-
-
 }

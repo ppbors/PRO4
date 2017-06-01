@@ -29,10 +29,19 @@ import java.util.List;
 
 
 public class AccountLogin extends AppCompatActivity {
+    /* The text field */
     private EditText number;
+    /* Is true if a correct number is entered */
     private boolean CheckEditText;
+    /* The number in the text field */
     private String GetNUMBER;
 
+    /**
+     * onCreate
+     * -> Creates the activity. The button is placed, we add a toolbar,
+     *    set a read policy and place a listener on the button
+     * @param savedInstanceState  - Last saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Button login;
@@ -52,12 +61,12 @@ public class AccountLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /* We reset the boolean so see if the fields are filled in */
-                GetCheckEditTextIsEmptyOrNot();
+                getCheckEditTextIsEmptyOrNot();
 
                 /* If so, we sent this data to the database */
                 if (CheckEditText) {
                     sendDataToServer(GetNUMBER);
-                    /* Allow the textfile to update itself */
+                    /* Allow the text file to update itself */
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -71,11 +80,11 @@ public class AccountLogin extends AppCompatActivity {
                 }
                 /* Else we show a message */
                 else {
-                    Toast.makeText(AccountLogin.this, "Please fill in a mobile number.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountLogin.this, "Please fill in a mobile number.",
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
-
     }
 
     /**
@@ -85,19 +94,21 @@ public class AccountLogin extends AppCompatActivity {
      */
     private boolean readTextFile() {
         try {
-            /* We try to read the textfile for the right number */
+            /* We try to read the text file for the right number */
             InputStream input = new URL(Config.LOGIN_STATUS_URL).openStream();
             String myString = IOUtils.toString(input, "UTF-8");
 
+            /* A one indicates that the login was successful */
             if (myString.contains("1")) {
-                Toast.makeText(AccountLogin.this, "Login was successful (code " + myString + ")", Toast.LENGTH_LONG).show();
+                Toast.makeText(AccountLogin.this,
+                        "Login was successful (code " + myString + ")", Toast.LENGTH_LONG).show();
                 return true;
             }
             else {
-                Toast.makeText(AccountLogin.this, "Number is not registered (code " + myString + ")", Toast.LENGTH_LONG).show();
+                Toast.makeText(AccountLogin.this,
+                        "Number is not registered (code " + myString + ")", Toast.LENGTH_LONG).show();
                 return false;
             }
-
         }
         catch(IOException ex) {
             ex.printStackTrace();
@@ -119,21 +130,17 @@ public class AccountLogin extends AppCompatActivity {
             @Override
             protected String doInBackground(String... params) {
 
-                String QuickNUMBER = number;
-
-
+                /* List of objects that need to be sent to the server */
                 List<NameValuePair> nameValuePairs = new ArrayList<>();
 
-
                 /* Me make items in the list of pairs */
-                nameValuePairs.add(new BasicNameValuePair("number", QuickNUMBER));
-
+                nameValuePairs.add(new BasicNameValuePair("number", number));
 
                 /* We set up a new request */
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
 
-                    HttpPost httpPost = new HttpPost(Config.LOGINACCOUNT_URL);
+                    HttpPost httpPost = new HttpPost(Config.LOGIN_ACCOUNT_URL);
 
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
@@ -141,42 +148,42 @@ public class AccountLogin extends AppCompatActivity {
 
                     HttpEntity entity = response.getEntity();
 
-
                 } catch (ClientProtocolException e) {
-                    Toast.makeText(AccountLogin.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountLogin.this,
+                            "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
-                    Toast.makeText(AccountLogin.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountLogin.this,
+                            "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
                 }
-                return QuickNUMBER;
+                return number;
             }
         }
+        /* Here we send the data */
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
         sendPostReqAsyncTask.execute(number);
     }
 
     /**
-     * GetCheckEditTextIsEmptyOrNot
-     * -> Checks if our textfield is empty and is a mobile number
+     * getCheckEditTextIsEmptyOrNot
+     * -> Checks if our text field is empty and is a mobile number
      */
-    private void GetCheckEditTextIsEmptyOrNot(){
-
+    private void getCheckEditTextIsEmptyOrNot() {
+        /* We get the users input */
         GetNUMBER = number.getText().toString();
 
        /* All fields should be filled in and the number should be 10 digits and contain 06 */
-        CheckEditText = !(TextUtils.isEmpty(GetNUMBER) || !GetNUMBER.contains("06") || GetNUMBER.length() != 10);
+        CheckEditText = !(TextUtils.isEmpty(GetNUMBER) || !GetNUMBER.contains("06")
+                || GetNUMBER.length() != 10);
     }
 
     /**
      * registerCalled
      * -> This button is called whenever the register button is clicked
      *
-     * @param view
+     * @param view -
      */
     public void registerCalled(View view) {
         Intent intent = new Intent(this, AccountRegistreren.class);
         startActivity(intent);
     }
-
-
 }
-

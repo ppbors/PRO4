@@ -43,4 +43,3 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
     }
 
 }
-

@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -30,24 +29,32 @@ import android.widget.Toast;
 
 public class AccountRegistreren extends Activity {
 
+    /* The text fields */
     private EditText name, number;
+    /* Content in the text fields */
     private String GetNAME, GetNUMBER;
+    /* Is true if the fields are filled in properly */
     private Boolean CheckEditText;
 
-    /* Main function, called upon creation */
+
+    /**
+     * onCreate
+     * -> We add the text fields and button and its listener and set the layout
+     *
+     * @param savedInstanceState - The last saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Button register;
-        /* The textfields */
+
         name = (EditText)findViewById(R.id.editText2);
         number = (EditText)findViewById(R.id.editText3);
 
-        /* The button */
-        register = (Button)findViewById(R.id.button1) ;
+        Button register;
+        register = (Button)findViewById(R.id.button1);
 
-        /* Action peformed on buton click */
+        /* Action performed on button click */
         register.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -61,7 +68,8 @@ public class AccountRegistreren extends Activity {
                 }
                 /* Else we show a message */
                 else {
-                    Toast.makeText(AccountRegistreren.this, "Please fill all form fiels properly.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountRegistreren.this,
+                            "Please fill all form fields properly.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -71,25 +79,26 @@ public class AccountRegistreren extends Activity {
      * GetCheckedEditTestIsEmptyOrNot
      * -> Sets the boolean CheckEditText to true if
      *    all fields are filled in.
-     *
      */
-   private void GetCheckEditTextIsEmptyOrNot(){
-
+   private void GetCheckEditTextIsEmptyOrNot() {
+        /* We get the users input */
         GetNAME = name.getText().toString();
         GetNUMBER = number.getText().toString();
 
        /* All fields should be filled in and be correct*/
-       CheckEditText = GetNUMBER.contains("06") && GetNUMBER.length() == 10 && !TextUtils.isEmpty(GetNAME) && !TextUtils.isEmpty(GetNUMBER);
+       CheckEditText = GetNUMBER.contains("06") && GetNUMBER.length() == 10
+               && !TextUtils.isEmpty(GetNAME) && !TextUtils.isEmpty(GetNUMBER);
     }
 
     /**
      * SendDataToServer
-     * -> Sends the data in the parameters to the database via a POST request.
+     * -> Sends the data in the parameters (and the location) to the database via a POST request.
      * @param name - The name the user entered
      * @param number - The mobile number the user entered
      */
-    private void SendDataToServer(final String name, final String number){
+    private void SendDataToServer(final String name, final String number) {
 
+        /* Here we get our location */
         final String currentLongitude = String.valueOf(MapsActivity.myLastLongitude);
         final String currentLatitude = String.valueOf(MapsActivity.myLastLatitude);
 
@@ -97,21 +106,13 @@ public class AccountRegistreren extends Activity {
             @Override
             protected String doInBackground(String... params) {
 
-                /* Some local variables to use */
-                String QuickNAME = name ;
-                String QuickNUMBER = number ;
-                String QuickLONGITUDE = currentLongitude;
-                String QuickLATITUDE = currentLatitude;
-
                 List<NameValuePair> nameValuePairs = new ArrayList<>();
 
-
                 /* Me make items in the list of pairs */
-                nameValuePairs.add(new BasicNameValuePair("name", QuickNAME));
-                nameValuePairs.add(new BasicNameValuePair("number", QuickNUMBER));
-                nameValuePairs.add(new BasicNameValuePair("longitude", QuickLONGITUDE));
-                nameValuePairs.add(new BasicNameValuePair("latitude", QuickLATITUDE));
-
+                nameValuePairs.add(new BasicNameValuePair("name", name));
+                nameValuePairs.add(new BasicNameValuePair("number", number));
+                nameValuePairs.add(new BasicNameValuePair("longitude", currentLongitude));
+                nameValuePairs.add(new BasicNameValuePair("latitude", currentLatitude));
 
                 /* We set up a new request */
                 try {
@@ -125,16 +126,21 @@ public class AccountRegistreren extends Activity {
 
                     HttpEntity entity = response.getEntity();
 
-
                 } catch (ClientProtocolException e) {
-                    Toast.makeText(AccountRegistreren.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountRegistreren.this, "Error: 1" + e.toString(),
+                            Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
-                    Toast.makeText(AccountRegistreren.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountRegistreren.this, "Error: 2" + e.toString(),
+                            Toast.LENGTH_LONG).show();
                 }
-                return QuickNAME;
+                return name;
             }
 
-            /* Can be used to ask for a picture in the phone gallery */
+            /**
+             * getPicture
+             * -> Requests a picture from the phone's gallery (not used)
+             * @return - nothing
+             */
             protected Intent getPicture() {
                 Intent intent = new Intent();
                 intent.setType("image/*");
@@ -143,28 +149,35 @@ public class AccountRegistreren extends Activity {
                 return intent;
             }
 
-            /* We show a message at the end of a request */
+            /**
+             * onPostExecute
+             * -> At the end of a registration, this method is called to ensure
+             *    the correctness of the registration. We read our .txt file and
+             *    determine the outcome.
+             * @param result -
+             */
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
 
-                /* Reads integer from textfile */
+                /* Reads integer from text file */
                 try {
-
-                    InputStream input = new URL("http://nolden.biz/Android/regStatus.txt").openStream();
+                    InputStream input = new URL(Config.REGISTER_STATUS_URL).openStream();
                     String myString = IOUtils.toString(input, "UTF-8");
                     if (Objects.equals(myString, "1")) {
-                        Toast.makeText(AccountRegistreren.this, "Registration successful", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AccountRegistreren.this, "Registration successful",
+                                Toast.LENGTH_LONG).show();
                         finish();
                     }
-                    else Toast.makeText(AccountRegistreren.this, "Number already exists", Toast.LENGTH_LONG).show();
+                    else Toast.makeText(AccountRegistreren.this, "Number already exists",
+                            Toast.LENGTH_LONG).show();
                 }
-                catch(IOException ex) {
+                catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
         }
-        /* Here we actually send the data */
+        /* Here we send the data */
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
         sendPostReqAsyncTask.execute(name, number, currentLongitude, currentLatitude);
     }

@@ -28,7 +28,14 @@ import android.widget.Toast;
 
 public class ToonJeVrienden extends AppCompatActivity {
 
-    /* Method called upon creation of the activity */
+    /**
+     * onCreate
+     * -> When the activity begins we send our number to the server.
+     *    Then we wait one second the let the database update itself.
+     *    After that we read the data.
+     *
+     * @param savedInstanceState  - The last saved state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +48,13 @@ public class ToonJeVrienden extends AppCompatActivity {
             e.printStackTrace();
         }
         setContentView(R.layout.activity_toonvrienden);
+
+        /* Policy for the reading */
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         connect();
     }
-
 
     /**
      * connect
@@ -55,8 +63,11 @@ public class ToonJeVrienden extends AppCompatActivity {
     private void connect() {
         String data;
         List<String> r = new ArrayList<>();
-        ArrayAdapter<String>adapter=new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1,r);
-        ListView list=(ListView)findViewById(R.id.listView1);
+        ArrayAdapter<String>adapter = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_list_item_1,r);
+        ListView list = (ListView)findViewById(R.id.listView1);
+
+        /* Set up the request */
         try {
             DefaultHttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(Config.CHECK_FRIENDS_URL);
@@ -64,8 +75,9 @@ public class ToonJeVrienden extends AppCompatActivity {
             HttpEntity entity=response.getEntity();
             data=EntityUtils.toString(entity);
             Log.e("STRING", data);
-            try {
 
+            /* Add the names to the array */
+            try {
                 JSONArray json = new JSONArray(data);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject obj = json.getJSONObject(i);
@@ -75,7 +87,6 @@ public class ToonJeVrienden extends AppCompatActivity {
                     r.add(name);
                     list.setAdapter(adapter);
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -84,12 +95,11 @@ public class ToonJeVrienden extends AppCompatActivity {
         }
     }
 
-
     /**
      * sendDataToServer
      * -> Sends your phonenumber to the server so that your friends
      *    can be retrieved
-     * @param phonenumber  - The users phonenumber
+     * @param phonenumber  - The users phone-number
      */
     private void sendDataToServer(final String phonenumber) {
 
@@ -97,17 +107,16 @@ public class ToonJeVrienden extends AppCompatActivity {
             @Override
             protected String doInBackground(String... params) {
 
-                String QuickNUMBER = phonenumber;
                 List<NameValuePair> nameValuePairs = new ArrayList<>();
 
                 /* Me make items in the list of pairs */
-                nameValuePairs.add(new BasicNameValuePair("phonenumber", QuickNUMBER));
+                nameValuePairs.add(new BasicNameValuePair("phonenumber", phonenumber));
 
                 /* We set up a new request */
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
 
-                    HttpPost httpPost = new HttpPost(Config.GETFRIENDS_URL);
+                    HttpPost httpPost = new HttpPost(Config.GET_FRIENDS_URL);
 
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
@@ -117,15 +126,17 @@ public class ToonJeVrienden extends AppCompatActivity {
 
 
                 } catch (ClientProtocolException e) {
-                    Toast.makeText(ToonJeVrienden.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ToonJeVrienden.this, "Error: 1" + e.toString(),
+                            Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
-                    Toast.makeText(ToonJeVrienden.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ToonJeVrienden.this, "Error: 2" + e.toString(),
+                            Toast.LENGTH_LONG).show();
                 }
-                return QuickNUMBER;
+                return phonenumber;
             }
         }
 
-        /* Here we send the phonenumber */
+        /* Here we send the phone-number */
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
         sendPostReqAsyncTask.execute(phonenumber);
     }
