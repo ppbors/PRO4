@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 public class ToonJeVrienden extends AppCompatActivity {
 
+    /* Method called upon creation of the activity */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,10 @@ public class ToonJeVrienden extends AppCompatActivity {
     }
 
 
+    /**
+     * connect
+     * -> Connects with the server an retrieves the names of the users friends
+     */
     private void connect() {
         String data;
         List<String> r = new ArrayList<>();
@@ -80,7 +85,12 @@ public class ToonJeVrienden extends AppCompatActivity {
     }
 
 
-
+    /**
+     * sendDataToServer
+     * -> Sends your phonenumber to the server so that your friends
+     *    can be retrieved
+     * @param phonenumber  - The users phonenumber
+     */
     private void sendDataToServer(final String phonenumber) {
 
         class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
@@ -114,7 +124,8 @@ public class ToonJeVrienden extends AppCompatActivity {
                 return QuickNUMBER;
             }
         }
-        Toast.makeText(ToonJeVrienden.this, phonenumber, Toast.LENGTH_LONG).show();
+
+        /* Here we send the phonenumber */
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
         sendPostReqAsyncTask.execute(phonenumber);
     }

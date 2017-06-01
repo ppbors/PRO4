@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -12,6 +13,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -29,10 +32,27 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -187,6 +207,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
         updatePublicLatLong(currentLatitude, currentLongitude);
+        sendDataToServer2(Config.MY_NUMBER);
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
 
         MarkerOptions options = new MarkerOptions()
@@ -195,6 +216,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.clear(); /* This clears all markers */
         mMap.addMarker(options);
 
+        sendDataToServer(Config.MY_NUMBER);
         findData();
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -243,6 +265,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         requestQueue.add(stringRequest);
     }
 
+    /**
+     * sendDataToServer
+     * -> Sends your phonenumber to the server so that your friends
+     *    can be retrieved
+     * @param phonenumber  - The users phonenumber
+     */
+    private void sendDataToServer(final String phonenumber) {
+
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                String QuickNUMBER = phonenumber;
+                List<NameValuePair> nameValuePairs = new ArrayList<>();
+
+                /* Me make items in the list of pairs */
+                nameValuePairs.add(new BasicNameValuePair("phonenumber", QuickNUMBER));
+
+                /* We set up a new request */
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+
+                    HttpPost httpPost = new HttpPost(Config.FRIENDS_LOCATIONS_SEND_URL);
+
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+
+                    HttpEntity entity = response.getEntity();
+
+
+                } catch (ClientProtocolException e) {
+                    Toast.makeText(MapsActivity.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    Toast.makeText(MapsActivity.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                }
+                return QuickNUMBER;
+            }
+        }
+        Toast.makeText(MapsActivity.this, phonenumber, Toast.LENGTH_LONG).show();
+
+        /* Here we send the phonenumber */
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+        sendPostReqAsyncTask.execute(phonenumber);
+    }
 
     /**
      * setFriendsOnMap
@@ -282,6 +349,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 //Adding the name of the student to array list
                 students.add(json.getString(Config.TAG_NAME));
+                Log.e("STRING", json.getString(Config.TAG_NAME));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -393,6 +461,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+
+
     /* All methods below this point are connected with buttons and will be called
        when the buttons are clicked */
     public void ToonAlleData(View view){
@@ -408,5 +478,61 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void goToFriends(View view) {
         Intent intent = new Intent(this, FriendActivity.class);
         startActivity(intent);
+    }
+
+
+
+    /**
+     * SendDataToServer
+     * -> Sends the data in the parameters to the database via a POST request.
+     * @param phonenumber - The mobile number the user entered
+     */
+    private void sendDataToServer2(final String phonenumber){
+
+        final String longitude = String.valueOf(myLastLongitude);
+        final String latitude = String.valueOf(myLastLatitude);
+
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                /* Some local variables to use */
+                String QuickNUMBER = phonenumber ;
+                String QuickLONGITUDE = longitude;
+                String QuickLATITUDE = latitude;
+
+                List<NameValuePair> nameValuePairs = new ArrayList<>();
+
+
+                /* Me make items in the list of pairs */
+                nameValuePairs.add(new BasicNameValuePair("phonenumber", QuickNUMBER));
+                nameValuePairs.add(new BasicNameValuePair("longitude", QuickLONGITUDE));
+                nameValuePairs.add(new BasicNameValuePair("latitude", QuickLATITUDE));
+
+
+                /* We set up a new request */
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+
+                    HttpPost httpPost = new HttpPost(Config.UPDATE_LOCATIONS_URL);
+
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+
+                    HttpEntity entity = response.getEntity();
+
+
+                } catch (ClientProtocolException e) {
+                    Toast.makeText(MapsActivity.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    Toast.makeText(MapsActivity.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                }
+                return phonenumber;
+            }
+        }
+        /* Here we actually send the data */
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+        sendPostReqAsyncTask.execute(phonenumber, latitude, longitude);
     }
 }

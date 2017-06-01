@@ -1,6 +1,5 @@
 package com.example.philippebors.volgjevrienden;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
