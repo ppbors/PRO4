@@ -54,9 +54,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ScrollingActivity"
-            android:label="Your Friends" />
-        <activity
             android:name=".FriendActivity"
             android:label="Your Friends" />
         <activity

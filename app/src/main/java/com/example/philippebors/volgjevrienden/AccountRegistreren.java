@@ -32,17 +32,14 @@ public class AccountRegistreren extends Activity {
 
     private EditText name, number;
     private String GetNAME, GetNUMBER;
-    private Button register ;
-    private String DataParseUrl = "http://nolden.biz/Android/registerAccount.php" ;
     private Boolean CheckEditText;
-    private Boolean NumberCorrect = true;
 
     /* Main function, called upon creation */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        Button register;
         /* The textfields */
         name = (EditText)findViewById(R.id.editText2);
         number = (EditText)findViewById(R.id.editText3);
@@ -59,15 +56,12 @@ public class AccountRegistreren extends Activity {
                 GetCheckEditTextIsEmptyOrNot();
 
                 /* If so, we sent this data to the database */
-                if (CheckEditText && NumberCorrect) {
+                if (CheckEditText) {
                     SendDataToServer(GetNAME, GetNUMBER);
                 }
                 /* Else we show a message */
-                else if (!CheckEditText){
-                    Toast.makeText(AccountRegistreren.this, "Please fill all form fields.", Toast.LENGTH_LONG).show();
-                }
-                else if (!NumberCorrect){
-                    Toast.makeText(AccountRegistreren.this, "Your number should have 9 digits, starting with 6.", Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(AccountRegistreren.this, "Please fill all form fiels properly.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -79,24 +73,13 @@ public class AccountRegistreren extends Activity {
      *    all fields are filled in.
      *
      */
-   public void GetCheckEditTextIsEmptyOrNot(){
+   private void GetCheckEditTextIsEmptyOrNot(){
 
         GetNAME = name.getText().toString();
         GetNUMBER = number.getText().toString();
 
-       /* All fields should be filled in*/
-        if (TextUtils.isEmpty(GetNAME) || TextUtils.isEmpty(GetNUMBER)) {
-            CheckEditText = false;
-        }
-        else {
-            CheckEditText = true ;
-        }
-
-//       int length = GetNUMBER.length();
-//
-//       if(length != 9){
-//           NumberCorrect = false;
-//       }
+       /* All fields should be filled in and be correct*/
+       CheckEditText = GetNUMBER.contains("06") && GetNUMBER.length() == 10 && !TextUtils.isEmpty(GetNAME) && !TextUtils.isEmpty(GetNUMBER);
     }
 
     /**
@@ -105,7 +88,7 @@ public class AccountRegistreren extends Activity {
      * @param name - The name the user entered
      * @param number - The mobile number the user entered
      */
-    public void SendDataToServer(final String name, final String number){
+    private void SendDataToServer(final String name, final String number){
 
         final String currentLongitude = String.valueOf(MapsActivity.myLastLongitude);
         final String currentLatitude = String.valueOf(MapsActivity.myLastLatitude);
@@ -120,7 +103,7 @@ public class AccountRegistreren extends Activity {
                 String QuickLONGITUDE = currentLongitude;
                 String QuickLATITUDE = currentLatitude;
 
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                List<NameValuePair> nameValuePairs = new ArrayList<>();
 
 
                 /* Me make items in the list of pairs */
@@ -134,7 +117,7 @@ public class AccountRegistreren extends Activity {
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
 
-                    HttpPost httpPost = new HttpPost(DataParseUrl);
+                    HttpPost httpPost = new HttpPost(Config.REGISTER_URL);
 
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
@@ -165,22 +148,20 @@ public class AccountRegistreren extends Activity {
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
 
+                /* Reads integer from textfile */
                 try {
 
                     InputStream input = new URL("http://nolden.biz/Android/regStatus.txt").openStream();
                     String myString = IOUtils.toString(input, "UTF-8");
-
                     if (Objects.equals(myString, "1")) {
                         Toast.makeText(AccountRegistreren.this, "Registration successful", Toast.LENGTH_LONG).show();
+                        finish();
                     }
                     else Toast.makeText(AccountRegistreren.this, "Number already exists", Toast.LENGTH_LONG).show();
                 }
                 catch(IOException ex) {
                     ex.printStackTrace();
                 }
-
-
-                finish();
             }
         }
         /* Here we actually send the data */
