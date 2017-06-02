@@ -72,8 +72,8 @@ public class AccountLogin extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    Config.MY_NUMBER = GetNUMBER;
                     if (readTextFile()) {
-                        Config.MY_NUMBER = GetNUMBER;
                         setMyPicture();
                         Intent intent = new Intent(v.getContext(), MapsActivity.class);
                         startActivity(intent);
@@ -96,7 +96,8 @@ public class AccountLogin extends AppCompatActivity {
     private boolean readTextFile() {
         try {
             /* We try to read the text file for the right number */
-            InputStream input = new URL(Config.LOGIN_STATUS_URL).openStream();
+            InputStream input = new URL(Config.LOGIN_STATUS_URL + Config.MY_NUMBER +
+                    "loginStatus.txt").openStream();
             String myString = IOUtils.toString(input, "UTF-8");
 
             /* A one indicates that the login was successful */
@@ -107,7 +108,8 @@ public class AccountLogin extends AppCompatActivity {
             }
             else {
                 Toast.makeText(AccountLogin.this,
-                        "Number is not registered (code " + myString + ")", Toast.LENGTH_LONG).show();
+                        "Number is not registered (code " + myString + ")",
+                        Toast.LENGTH_LONG).show();
                 return false;
             }
         }
@@ -126,7 +128,8 @@ public class AccountLogin extends AppCompatActivity {
     private boolean setMyPicture() {
         try {
             /* We try to read the text file for the right number */
-            InputStream input = new URL(Config.GET_LINK_URL + Config.MY_NUMBER + "getPicture.txt").openStream();
+            InputStream input = new URL(Config.GET_LINK_URL + Config.MY_NUMBER +
+                    "getPicture.txt").openStream();
             String myString = IOUtils.toString(input, "UTF-8");
             Config.MY_LINK = myString;
             return true;

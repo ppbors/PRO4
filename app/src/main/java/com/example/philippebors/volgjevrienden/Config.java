@@ -13,10 +13,10 @@ class Config {
     public static final String GO_DARK_URL = "http://nolden.biz/Android/goDark.php";
 
     /* TXT URLS */
-    public static final String LOGIN_STATUS_URL = "http://nolden.biz/Android/loginStatus.txt";
+    public static final String LOGIN_STATUS_URL = "http://nolden.biz/Android/response/";
     public static final String FRIENDS_LOCATIONS_URL = "http://nolden.biz/Android/response/";
     public static final String CHECK_FRIENDS_URL = "http://nolden.biz/Android/response/";
-    public static final String REGISTER_STATUS_URL = "http://nolden.biz/Android/regStatus.txt";
+    public static final String REGISTER_STATUS_URL = "http://nolden.biz/Android/response/";
     public static final String GET_LINK_URL = "http://nolden.biz/Android/response/";
 
     /* Number of the user that logged in */

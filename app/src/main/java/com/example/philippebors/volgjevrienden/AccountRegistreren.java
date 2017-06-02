@@ -155,7 +155,8 @@ public class AccountRegistreren extends Activity {
 
                 /* Reads integer from text file */
                 try {
-                    InputStream input = new URL(Config.REGISTER_STATUS_URL).openStream();
+                    InputStream input = new URL(Config.REGISTER_STATUS_URL + GetNUMBER +
+                            "regStatus.txt").openStream();
                     String myString = IOUtils.toString(input, "UTF-8");
                     if (Objects.equals(myString, "1")) {
                         Toast.makeText(AccountRegistreren.this, "Registration successful",
