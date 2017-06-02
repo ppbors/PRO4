@@ -61,6 +61,26 @@ public class FriendActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button deleteThisFriend;
+        deleteThisFriend = (Button)findViewById(R.id.button7);
+
+        deleteThisFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCheckEditTextIsEmptyOrNot();
+
+                /* If correct, we send this data to the database */
+                if (CheckEditText) {
+                    sendDataToServer2(GetNUMBER);
+                }
+                /* Else we show a message */
+                else {
+                    Toast.makeText(FriendActivity.this, "Please enter a real phone-number.",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     /**
@@ -132,6 +152,69 @@ public class FriendActivity extends AppCompatActivity {
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
                 Toast.makeText(FriendActivity.this, "Friend added", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+        sendPostReqAsyncTask.execute(phonenumber1, phonenumber2);
+    }
+
+    /**
+     * sendDataToServer2
+     * -> The number the user gave us will be send in order to check if
+     *    this number already exists or not. If it exists, the users
+     *    friend will be deleted.
+     *
+     * @param number  - The number the user gave as input
+     */
+    private void sendDataToServer2(final String number) {
+
+        final String phonenumber1 = Config.MY_NUMBER;
+        final String phonenumber2 = number;
+
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                List<NameValuePair> nameValuePairs = new ArrayList<>();
+
+                /* Me make items in the list of pairs */
+                nameValuePairs.add(new BasicNameValuePair("phonenumber1", phonenumber1));
+                nameValuePairs.add(new BasicNameValuePair("phonenumber2", phonenumber2));
+
+                /* We set up a new request */
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+
+                    HttpPost httpPost = new HttpPost(Config.DELETE_FRIEND_URL);
+
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+
+                    HttpEntity entity = response.getEntity();
+
+                } catch (ClientProtocolException e) {
+                    Toast.makeText(FriendActivity.this, "Error: 1" + e.toString(),
+                            Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    Toast.makeText(FriendActivity.this, "Error: 2" + e.toString(),
+                            Toast.LENGTH_LONG).show();
+                }
+                return number;
+            }
+
+            /**
+             * onPostExecute
+             * -> We show a message to indicate that the number has been added
+             *    as a friend.
+             * @param result -
+             */
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+                Toast.makeText(FriendActivity.this, "Friend deleted", Toast.LENGTH_LONG).show();
                 finish();
             }
         }

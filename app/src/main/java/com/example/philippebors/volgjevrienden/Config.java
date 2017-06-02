@@ -11,6 +11,7 @@ class Config {
     public static final String FRIENDS_LOCATIONS_SEND_URL = "http://nolden.biz/Android/getLocations.php";
     public static final String UPDATE_LOCATIONS_URL = "http://nolden.biz/Android/updateLocation.php";
     public static final String GO_DARK_URL = "http://nolden.biz/Android/goDark.php";
+    public static final String DELETE_FRIEND_URL = "http://nolden.biz/Android/deleteFriendship.php";
 
     /* TXT URLS */
     public static final String LOGIN_STATUS_URL = "http://nolden.biz/Android/response/";
