@@ -25,6 +25,8 @@ class Config {
     public static final String TAG_NAME = "NAME";
     public static final String TAG_LONGITUDE = "LONGITUDE";
     public static final String TAG_LATITUDE = "LATITUDE";
+    public static final String TAG_LINK = "LINK";
+
 
     /* Name of the JSON array */
     public static final String JSON_ARRAY = "result";

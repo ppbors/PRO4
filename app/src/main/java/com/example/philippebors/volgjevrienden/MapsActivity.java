@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -44,6 +47,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -203,7 +210,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void pointToPosition(LatLng position) {
         /* Build the camera position */
-        CameraPosition cameraPosition = new CameraPosition.Builder()
+       CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(position)
                 .zoom(5).build();
         /* Zoom in and animate the camera */
@@ -431,10 +438,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String number = getNumber(i);
             LatLng latLng = new LatLng(latitude, longitude);
 
-            /* Add a marker */
-            MarkerOptions options = new MarkerOptions()
-                    .position(latLng)
-                    .title(number);
+            String link = getLink(i);
+
+            MarkerOptions options;
+
+            if (link.equals("") || link.isEmpty() || link.equals(null)) {
+                options = new MarkerOptions()
+                        .position(latLng)
+                        .title(number);
+            }
+            else{
+
+                try{
+                    URL url = new URL(link);
+                    try {
+                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                        conn.setDoInput(true);
+                        conn.connect();
+                        InputStream is = conn.getInputStream();
+                        Bitmap ibmImg = BitmapFactory.decodeStream(is);
+                        ibmImg = ibmImg.createScaledBitmap(ibmImg, 100, 100, false);
+
+                        options = new MarkerOptions()
+                                .position(latLng)
+                                .title(number)
+                                .icon(BitmapDescriptorFactory.fromBitmap(ibmImg));
+                    }
+                    catch (IOException e)
+                    {
+                        options = new MarkerOptions()
+                                .position(latLng)
+                                .title(number);
+                    }
+                }
+                catch (MalformedURLException e)
+                {
+                    options = new MarkerOptions()
+                            .position(latLng)
+                            .title(number);
+                }
+            }
             mMap.addMarker(options);
         }
     }
@@ -475,6 +518,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
         return number;
+    }
+
+    /**
+     * getLink
+     * -> Returns the link of a person in the array at location postition
+     * @param position  - The index of the array
+     * @return  - The link of the person
+     */
+    private String getLink(int position){
+        String link="";
+        try {
+            JSONObject json = result.getJSONObject(position);
+            link = json.getString(Config.TAG_LINK);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return link;
     }
 
     /**
