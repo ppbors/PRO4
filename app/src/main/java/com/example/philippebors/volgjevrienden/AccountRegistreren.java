@@ -30,9 +30,9 @@ import android.widget.Toast;
 public class AccountRegistreren extends Activity {
 
     /* The text fields */
-    private EditText name, number;
+    private EditText name, number, link;
     /* Content in the text fields */
-    private String GetNAME, GetNUMBER;
+    private String GetNAME, GetNUMBER, GetURL;
     /* Is true if the fields are filled in properly */
     private Boolean CheckEditText;
 
@@ -48,8 +48,9 @@ public class AccountRegistreren extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        name = (EditText)findViewById(R.id.editText2);
-        number = (EditText)findViewById(R.id.editText3);
+        name = (EditText)findViewById(R.id.editText);
+        number = (EditText)findViewById(R.id.editText2);
+        link = (EditText)findViewById(R.id.editText3);
 
         Button register;
         register = (Button)findViewById(R.id.button1);
@@ -64,7 +65,7 @@ public class AccountRegistreren extends Activity {
 
                 /* If so, we sent this data to the database */
                 if (CheckEditText) {
-                    sendDataToServer(GetNAME, GetNUMBER);
+                    sendDataToServer(GetNAME, GetNUMBER, GetURL);
                 }
                 /* Else we show a message */
                 else {
@@ -84,10 +85,13 @@ public class AccountRegistreren extends Activity {
         /* We get the users input */
         GetNAME = name.getText().toString();
         GetNUMBER = number.getText().toString();
+        GetURL = link.getText().toString();
+
 
        /* All fields should be filled in and be correct*/
        CheckEditText = GetNUMBER.contains("06") && GetNUMBER.length() == 10
-               && !TextUtils.isEmpty(GetNAME) && !TextUtils.isEmpty(GetNUMBER);
+               && !TextUtils.isEmpty(GetNAME) && !TextUtils.isEmpty(GetNUMBER)
+               && GetURL.length() < 100;
     }
 
     /**
@@ -96,7 +100,7 @@ public class AccountRegistreren extends Activity {
      * @param name - The name the user entered
      * @param number - The mobile number the user entered
      */
-    private void sendDataToServer(final String name, final String number) {
+    private void sendDataToServer(final String name, final String number, final String link) {
 
         /* Here we get our location */
         final String currentLongitude = String.valueOf(MapsActivity.myLastLongitude);
@@ -113,6 +117,7 @@ public class AccountRegistreren extends Activity {
                 nameValuePairs.add(new BasicNameValuePair("number", number));
                 nameValuePairs.add(new BasicNameValuePair("longitude", currentLongitude));
                 nameValuePairs.add(new BasicNameValuePair("latitude", currentLatitude));
+                nameValuePairs.add(new BasicNameValuePair("link", link));
 
                 /* We set up a new request */
                 try {
@@ -167,6 +172,7 @@ public class AccountRegistreren extends Activity {
         }
         /* Here we send the data */
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-        sendPostReqAsyncTask.execute(name, number, currentLongitude, currentLatitude);
+        sendPostReqAsyncTask.execute(name, number, currentLongitude, currentLatitude, link);
+        Config.MY_LINK = link;
     }
 }

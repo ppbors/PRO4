@@ -15,7 +15,10 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -242,10 +245,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /* We place our marker */
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-        MarkerOptions options = new MarkerOptions()
-                .position(latLng)
-                .title("I am here!");
-        mMap.clear(); /* This clears all markers */
+        String link = Config.MY_LINK;
+
+        MarkerOptions options;
+
+        if (link.equals("") || link.isEmpty() || link.equals(null)) {
+            options = new MarkerOptions()
+                    .position(latLng)
+                    .title("I am here");
+        }
+        else{
+
+            try{
+                URL url = new URL(link);
+                try {
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    Bitmap ibmImg = BitmapFactory.decodeStream(is);
+                    ibmImg = ibmImg.createScaledBitmap(ibmImg, 100, 100, false);
+
+                    options = new MarkerOptions()
+                            .position(latLng)
+                            .title("I am here")
+                            .icon(BitmapDescriptorFactory.fromBitmap(ibmImg));
+                }
+                catch (IOException e)
+                {
+                    options = new MarkerOptions()
+                            .position(latLng)
+                            .title("I am here");
+                }
+            }
+            catch (MalformedURLException e)
+            {
+                options = new MarkerOptions()
+                        .position(latLng)
+                        .title("I am here");
+            }
+        }
+        mMap.clear();
         mMap.addMarker(options);
 
         /* We send our number to another php file */
@@ -638,6 +678,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      *    They start new activities
      */
     public void refreshButtonClicked(View view){
+        ToggleButton button = (ToggleButton)findViewById(R.id.toggleButton);
+        button.setChecked(false);
         refreshNewLocation();
         doRefresh();
         doRefresh();
@@ -651,5 +693,61 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void addFriendButtonClicked(View view) {
         Intent intent = new Intent(this, FriendActivity.class);
         startActivity(intent);
+    }
+
+    public void darkButtonClicked(View view) {
+        ToggleButton button = (ToggleButton)findViewById(R.id.toggleButton);
+        if (!button.isChecked()) {
+            sendDataToServer2(Config.MY_NUMBER);
+
+        }
+        else {
+            refreshNewLocation();
+            doRefresh();
+            doRefresh();
+            sendDataToServer3(Config.MY_NUMBER);
+        }
+    }
+
+    /**
+     * sendDataToServer3
+     * -> Sends the data in the parameters to the database via a POST request.
+     * @param phonenumber - The mobile number the user entered
+     */
+    private void sendDataToServer3(final String phonenumber){
+
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                List<NameValuePair> nameValuePairs = new ArrayList<>();
+
+                /* Me make items in the list of pairs */
+                nameValuePairs.add(new BasicNameValuePair("phonenumber", phonenumber));
+
+
+                /* We set up a new request */
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+
+                    HttpPost httpPost = new HttpPost(Config.GO_DARK_URL);
+
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+
+                    HttpEntity entity = response.getEntity();
+
+                } catch (ClientProtocolException e) {
+                    Toast.makeText(MapsActivity.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    Toast.makeText(MapsActivity.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                }
+                return phonenumber;
+            }
+        }
+        /* Here we actually send the data */
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+        sendPostReqAsyncTask.execute(phonenumber);
     }
 }

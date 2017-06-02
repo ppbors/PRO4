@@ -24,13 +24,29 @@
         android:id="@+id/editText2"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="21dp"
-        android:ems="10"
-        android:hint="@string/enter_your_name"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editText"
+        android:layout_marginTop="19dp"
         android:background="#fbfefd"
+        android:ems="10"
         android:gravity="center"
+        android:hint="ENTER YOUR NUMBER">
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView1"
-        android:layout_alignParentStart="true">
+        android:layout_marginTop="21dp"
+        android:background="#fbfefd"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/enter_your_name">
+
         <requestFocus />
     </EditText>
 
@@ -38,13 +54,13 @@
         android:id="@+id/editText3"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="23dp"
-        android:ems="10"
-        android:hint="@string/enter_your_number"
-        android:background="#fbfefd"
-        android:gravity="center"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/editText2"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="23dp"
+        android:background="#fbfefd"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="ENTER YOUR PICTURE" />
 
     <Button
         android:id="@+id/button1"

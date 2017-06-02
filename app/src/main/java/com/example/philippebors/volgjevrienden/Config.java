@@ -10,15 +10,18 @@ class Config {
     public static final String FRIEND_URL = "http://nolden.biz/Android/addFriendship.php";
     public static final String FRIENDS_LOCATIONS_SEND_URL = "http://nolden.biz/Android/getLocations.php";
     public static final String UPDATE_LOCATIONS_URL = "http://nolden.biz/Android/updateLocation.php";
+    public static final String GO_DARK_URL = "http://nolden.biz/Android/goDark.php";
 
     /* TXT URLS */
     public static final String LOGIN_STATUS_URL = "http://nolden.biz/Android/loginStatus.txt";
     public static final String FRIENDS_LOCATIONS_URL = "http://nolden.biz/Android/response/";
     public static final String CHECK_FRIENDS_URL = "http://nolden.biz/Android/response/";
     public static final String REGISTER_STATUS_URL = "http://nolden.biz/Android/regStatus.txt";
+    public static final String GET_LINK_URL = "http://nolden.biz/Android/response/";
 
     /* Number of the user that logged in */
     public static String MY_NUMBER = "";
+    public static String MY_LINK = "";
 
 
     /* Tags used in JSON strings */

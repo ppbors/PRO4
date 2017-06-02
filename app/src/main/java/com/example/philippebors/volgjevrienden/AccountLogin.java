@@ -74,6 +74,7 @@ public class AccountLogin extends AppCompatActivity {
                     }
                     if (readTextFile()) {
                         Config.MY_NUMBER = GetNUMBER;
+                        setMyPicture();
                         Intent intent = new Intent(v.getContext(), MapsActivity.class);
                         startActivity(intent);
                     }
@@ -115,6 +116,28 @@ public class AccountLogin extends AppCompatActivity {
         }
         return false;
     }
+
+
+    /**
+     * readTextFile
+     * -> Checks the login status and returns true if it contains 1
+     * @return  - True if 1, else false
+     */
+    private boolean setMyPicture() {
+        try {
+            /* We try to read the text file for the right number */
+            InputStream input = new URL(Config.GET_LINK_URL + Config.MY_NUMBER + "getPicture.txt").openStream();
+            String myString = IOUtils.toString(input, "UTF-8");
+            Config.MY_LINK = myString;
+            return true;
+        }
+        catch(IOException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+
 
     /**
      * sendDataToServer
