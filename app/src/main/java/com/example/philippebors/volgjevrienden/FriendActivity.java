@@ -48,7 +48,7 @@ public class FriendActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                GetCheckEditTextIsEmptyOrNot();
+                getCheckEditTextIsEmptyOrNot();
 
                 /* If correct, we send this data to the database */
                 if (CheckEditText) {
@@ -64,10 +64,10 @@ public class FriendActivity extends AppCompatActivity {
     }
 
     /**
-     * GetCheckEditTextIsEmptyOrNot
+     * getCheckEditTextIsEmptyOrNot
      * -> Checks if our text field is not empty and a mobile number
      */
-    private void GetCheckEditTextIsEmptyOrNot(){
+    private void getCheckEditTextIsEmptyOrNot() {
         /* We get the content of the text field */
         GetNUMBER = number.getText().toString();
 

@@ -64,7 +64,7 @@ public class AccountRegistreren extends Activity {
 
                 /* If so, we sent this data to the database */
                 if (CheckEditText) {
-                    SendDataToServer(GetNAME, GetNUMBER);
+                    sendDataToServer(GetNAME, GetNUMBER);
                 }
                 /* Else we show a message */
                 else {
@@ -91,12 +91,12 @@ public class AccountRegistreren extends Activity {
     }
 
     /**
-     * SendDataToServer
+     * sendDataToServer
      * -> Sends the data in the parameters (and the location) to the database via a POST request.
      * @param name - The name the user entered
      * @param number - The mobile number the user entered
      */
-    private void SendDataToServer(final String name, final String number) {
+    private void sendDataToServer(final String name, final String number) {
 
         /* Here we get our location */
         final String currentLongitude = String.valueOf(MapsActivity.myLastLongitude);
@@ -136,18 +136,6 @@ public class AccountRegistreren extends Activity {
                 return name;
             }
 
-            /**
-             * getPicture
-             * -> Requests a picture from the phone's gallery (not used)
-             * @return - nothing
-             */
-            protected Intent getPicture() {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 101);
-                return intent;
-            }
 
             /**
              * onPostExecute
