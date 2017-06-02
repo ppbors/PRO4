@@ -261,7 +261,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void findData() {
         persons = new ArrayList<>();
-        StringRequest stringRequest = new StringRequest(Config.FRIENDS_LOCATIONS_URL,
+        StringRequest stringRequest = new StringRequest(Config.FRIENDS_LOCATIONS_URL + Config.MY_NUMBER + "getLocation.txt",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

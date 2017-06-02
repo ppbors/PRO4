@@ -13,8 +13,8 @@ class Config {
 
     /* TXT URLS */
     public static final String LOGIN_STATUS_URL = "http://nolden.biz/Android/loginStatus.txt";
-    public static final String FRIENDS_LOCATIONS_URL = "http://nolden.biz/Android/getLocations.txt";
-    public static final String CHECK_FRIENDS_URL = "http://nolden.biz/Android/getFriends.txt";
+    public static final String FRIENDS_LOCATIONS_URL = "http://nolden.biz/Android/response/";
+    public static final String CHECK_FRIENDS_URL = "http://nolden.biz/Android/response/";
     public static final String REGISTER_STATUS_URL = "http://nolden.biz/Android/regStatus.txt";
 
     /* Number of the user that logged in */

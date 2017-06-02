@@ -70,7 +70,7 @@ public class ToonJeVrienden extends AppCompatActivity {
         /* Set up the request */
         try {
             DefaultHttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Config.CHECK_FRIENDS_URL);
+            HttpGet request = new HttpGet(Config.CHECK_FRIENDS_URL + Config.MY_NUMBER + "getFriends.txt");
             HttpResponse response = client.execute(request);
             HttpEntity entity=response.getEntity();
             data=EntityUtils.toString(entity);
