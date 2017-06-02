@@ -737,9 +737,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     HttpEntity entity = response.getEntity();
 
                 } catch (ClientProtocolException e) {
-                    Toast.makeText(MapsActivity.this, "Error: 1" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapsActivity.this, "Error: 1" + e.toString(),
+                            Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
-                    Toast.makeText(MapsActivity.this, "Error: 2" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapsActivity.this, "Error: 2" + e.toString(),
+                            Toast.LENGTH_LONG).show();
                 }
                 return phonenumber;
             }
